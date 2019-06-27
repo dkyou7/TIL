@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- META -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta property="og:title" content="og title" />
+    <meta property="og:description" content="og desc" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="" />
+    <meta property="og:url" content="" />
+    <meta name="keywords" content="key1, key2, key3" />
+    <meta name="description" content="desc" />
+
+    <!-- Favicon -->
+    <link href="" rel="shortcut icon" />
+
+    <!-- CSS -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:700&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="./css/reset.css" />
+    <link rel="stylesheet" href="./css/style.css" />
+
+    <!--JS-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="./js/ld.js"></script>
+
+    <title>Title</title>
+  </head>
+  <body>
+    <!-- Header -->
+    <div class="header-wrapper">
+      <div class="header-contents">
+        <!-- 타이틀 -->
+        <p class="title" onclick="ssafy.ld.goPage(0)">MY NAME</p>
+
+        <!-- 상단 메뉴 && 모바일 메뉴 -->
+        <div class="nav-bar">
+          <ul>
+            <li>
+              <a class="a-nav-bar" onClick="ssafy.ld.goPage(1)">About Me</a>
+            </li>
+            <li>
+              <a class="a-nav-bar" onClick="ssafy.ld.goPage(2)">Skills</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main -->
+    <div class="main-wrapper">
+      <!-- section-1 -->
+      <div class="section section-1">
+        <div class="section-1-background"></div>
+        <div class="section-content">
+          <!-- To do -->
+        </div>
+        <!-- Scroll Down Button -->
+        <button class="btn-scroll-down" onclick="ssafy.ld.goPage(1)">
+          Scroll down
+        </button>
+      </div>
+
+      <!-- section-2 : 자기소개 -->
+      <div class="section section-2">
+        <div class="section-content">
+          <!-- To do -->
+        </div>
+      </div>
+
+      <!-- section-3 : 보유 기술 역량 -->
+      <div class="section section-3">
+        <div class="section-content">
+          <!-- To do -->
+        </div>
+      </div>
+
+      <!-- footer-->
+      <div class="footer">
+        <p>Footer</p>
+      </div>
+    </div>
+
+    <!-- init script -->
+    <script type="text/javascript" charset="utf-8">
+      $(document).ready(function() {
+        // scroll active
+        setTimeout(function() {
+          var items = document.querySelectorAll(".section");
+          items[0].classList.add("active");
+        }, 500);
+
+        ssafy.ld.init();
+      });
+    </script>
+  </body>
+</html>
