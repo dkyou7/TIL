@@ -250,7 +250,7 @@ button:focus {
 /* section-2 */
 .section-2 {
   height: 100%;
-  background-color: #fff;
+  background-color: #e2e2e2;
 }
 
 .section-2 > .section-content > div {
@@ -260,66 +260,8 @@ button:focus {
   position: relative;
 }
 
-/*
-.section-2 > .section-content > div:first-child {
-  text-align: left;
-  padding-left: 110px;
-}
-
-.section-2 > .section-content > div:last-child {
-  text-align: right;
-  padding-right: 80px;
-}
-*/
-
-
-/* section 2 스크롤 애니메이션
-
-.section-2 img {
-  -webkit-transform: translateX(100px);
-  -moz-transform: translateX(100px);
-  -ms-transform: translateX(100px);
-  -o-transform: translateX(100px);
-  transform: translateX(100px);
-  opacity: 0;
-  -webkit-transition: all 0.7s;
-  -moz-transition: all 0.7s;
-  -ms-transition: all 0.7s;
-  -o-transition: all 0.7s;
-  transition: all 0.7s;
-}
-
-.section-2 .txt {
-  -webkit-transform: translateX(-100px);
-  -moz-transform: translateX(-100px);
-  -ms-transform: translateX(-100px);
-  -o-transform: translateX(-100px);
-  transform: translateX(-100px);
-  opacity: 0;
-  -webkit-transition: all 0.7s;
-  -moz-transition: all 0.7s;
-  -ms-transition: all 0.7s;
-  -o-transition: all 0.7s;
-  transition: all 0.7s;
-}
-.active.section-2 img,
-.active.section-2 .txt {
-  -webkit-transform: translateX(0);
-  -moz-transform: translateX(0);
-  -ms-transform: translateX(0);
-  -o-transform: translateX(0);
-  transform: translateX(0);
-  opacity: 1;
-}
-
-.section-2 h2 {
-  font-weight: 700;
-  margin: 4px 0 24px;
-}
-*/
-
-/* section-3 */
-.section-3 {
+/* section-4 */
+.section-4 {
   height: unset;
   padding: 120px 24px;
   position: relative;
@@ -337,18 +279,18 @@ button:focus {
   color: #fff;
 }
 
-.section-3 .section-content {
+.section-4 .section-content {
   text-align: center;
 }
 
 /*
-.section-3 h2 {
+.section-4 h2 {
   display: inline-block;
   margin: 0 auto 24px;
   color: #fff;
 }
 
-.section-3 ul {
+.section-4 ul {
   width: 49%;
   display: inline-block;
   vertical-align: top;
@@ -357,11 +299,11 @@ button:focus {
   padding: 0 54px;
 }
 
-.section-3 li:nth-child(2n-1) {
+.section-4 li:nth-child(2n-1) {
   line-height: 28px;
 }
 
-.section-3 li:nth-child(2n) {
+.section-4 li:nth-child(2n) {
   margin: 4px 0 28px;
 }
 */

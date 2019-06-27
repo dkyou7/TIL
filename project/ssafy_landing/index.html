@@ -17,22 +17,25 @@
     <link href="" rel="shortcut icon" />
 
     <!-- CSS -->
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-colors-metro.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto:700&display=swap" rel="stylesheet"/>
     <link rel="stylesheet" href="./css/reset.css" />
     <link rel="stylesheet" href="./css/style_comp.css" />
+
 
     <!--JS-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="./js/ld.js"></script>
 
-    <title>Title</title>
+    <title>유동관</title>
   </head>
   <body>
     <!-- Header -->
     <div class="header-wrapper">
       <div class="header-contents">
         <!-- 타이틀 -->
-        <p class="title" onclick="ssafy.ld.goPage(0)">JIWOO LEE</p>
+        <p class="title" onclick="ssafy.ld.goPage(0)">YouDongGuan</p>
 
         <!-- 상단 메뉴 && 모바일 메뉴 -->
         <div class="nav-bar">
@@ -41,12 +44,16 @@
               <a class="a-nav-bar" onClick="ssafy.ld.goPage(1)">About Me</a>
             </li>
             <li>
-              <a class="a-nav-bar" onClick="ssafy.ld.goPage(2)">Skills</a>
+              <a class="a-nav-bar" onClick="ssafy.ld.goPage(2)">Biography</a>
+            </li>
+            <li>
+              <a class="a-nav-bar" onClick="ssafy.ld.goPage(3)">Skills</a>
             </li>
           </ul>
         </div>
       </div>
     </div>
+
 
     <!-- Main -->
     <div class="main-wrapper">
@@ -54,28 +61,34 @@
       <div class="section section-1">
         <div class="section-1-background"></div>
         <div class="section-content">
+          <div class="left-content" style="width:60%; float:left;" >
           <h1>
             <span>Hello.</span> <br />
-            <span>I'm Frontend Developer.</span>
+            <span>My name is YDG.</span>
           </h1>
         </div>
+        <div class="my-img" style="width:40%; float:left;">
+          <img src="assets/img/ydk.jpg" alt="내사진" sytle='width:100px; height:400px; radius:50%;'/>
+        </div>
+      </div>
         <button class="btn-scroll-down" onclick="ssafy.ld.goPage(1)">
-          Scroll down
+           더 알아보자!
         </button>
       </div>
+      <div style="clear:both;"></div>
 
       <!-- section-2 : 자기소개 -->
       <div class="section section-2">
+        <div class="section-2-background"></div>
         <div class="section-content">
           <div>
             <p class="txt">About Me</p>
-            <h2 class="txt">Lee Jiwoo</h2>
+            <h2 class="txt">You DongGuan</h2>
             <p class="txt">
               안녕하세요.<br>
-              삼성 청년 SW 아카데미의 프로젝트 컨설턴트입니다.<br>
+              삼성 청년 SW 아카데미 개발자 꿈나무입니다.<br>
               저는 개발을 좋아하고 배우는 것을 좋아합니다.<br>
-              여러분들에게 개발자로서의 방향을<br>
-              제시해드리겠습니다.<br>
+              개발자로서의 기본을 탄탄히 하겠습니다.<br>
             </p>
           </div>
           <div>
@@ -84,8 +97,71 @@
         </div>
       </div>
 
-      <!-- section-3 : 보유 기술 역량 -->
+      <!-- section-3 : 살아온 나날들 -->
       <div class="section section-3">
+        <div class="section-content">
+          <div style="width:40%; float:left;">
+            <img src="assets/img/ydk.jpg" alt="" sytle='width:100px; height:100px'/>
+          </div>
+          <div class='right-content' style="width:60%; float:left;">
+            <p class="txt">About Me</p>
+            <h2 class="txt">You DongGuan</h2>
+            <p class="txt">
+              28세<br>
+              대구 출생(1992.09.28) - 대구 효성병원<br>
+              대전고등학교 졸 (2009.02 ~ 2011.02)<br>
+              육군 수기사 만기전역(2013.02 ~ 2014.11)<br>
+              경희대학교 컴퓨터공학과 졸업 (~2019.02)<br>
+              SSAFY 교육 입소 (~2019.06)<br>
+            </p>
+            <div class="row">
+              <div class="column">
+                <div class="card">
+                  <h5>대전고등학교</h5>
+                  <p>2008.02~</p>
+                  <p>2011.02</p>
+                </div>
+              </div>
+
+              <div class="column">
+                <div class="card">
+                  <h5>경희대학교</h5>
+                  <p>2012.02~</p>
+                  <p>2019.02</p>
+                </div>
+              </div>
+
+              <div class="column">
+                <div class="card">
+                  <h5>수기사</h5>
+                  <p>2013.02~</p>
+                  <p>2014.11</p>
+                </div>
+              </div>
+
+              <div class="column">
+                <div class="card">
+                  <h5>SSAFY</h5>
+                  <p>2018.12~</p>
+                  <p>2019.06</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- section-4 : 나의 성격은? -->
+      <div class="section section-4">
+          <img src="assets/img/16personality.PNG" alt="" sytle='width:100px; height:100px'/>
+      </div>
+
+      <!-- section-5 : 나의 취미는? -->
+      <div class="section section-5">
+
+      </div>
+
+      <!-- section-6 : 보유 기술 역량 -->
+      <div class="section section-6">
         <div class="section-content">
           <h2>Skills</h2>
           <div>
@@ -107,7 +183,7 @@
 
       <!-- footer-->
       <div class="footer">
-        <p>Copyright 2019 Lee Jiwoo All Right Reserved.</p>
+        <p>Copyright 2019 YDG All Right Reserved.</p>
       </div>
     </div>
 
