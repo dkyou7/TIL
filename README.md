@@ -28,3 +28,4 @@
 - 문자열 내림차순 정렬 옵션=>greater 사용법. rbegin,rend 사용법.
 - isdigit 함수 사용법.
 - find함수 사용법.
+- stoi(str) -> str  : string형을 int 형으로 변환.
