@@ -27,3 +27,4 @@
 - 대소문자 변환해주는 라이브러리 cctype 및 알고리즘 구현 공부.
 - 문자열 내림차순 정렬 옵션=>greater 사용법. rbegin,rend 사용법.
 - isdigit 함수 사용법.
+- find함수 사용법.
