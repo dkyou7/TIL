@@ -124,52 +124,41 @@ beforeCreate() {
 - git push pb master 
 
 ```vue
-<template>
-  <div style="position: relative;">
-    <v-toolbar fixed dense>
-      <v-btn flat icon>
-        <v-icon>home</v-icon>
-      </v-btn>
-      <v-toolbar-title>TREVI</v-toolbar-title>
-        <v-toolbar-items>
-      <div id="google_translate_element"></div>
-    </v-toolbar-items>
-      <v-spacer>
-      </v-spacer>
-      <v-toolbar-items class="hidden-xs-only">
-        <v-btn flat @click.stop="dialog = true">LOGIN</v-btn>
-        <v-dialog v-model="dialog" max-width="290">
-          <v-card>
-            <v-card-title class="headline">Log in</v-card-title>
-
-            <v-card-text>
-              <!-- <SignIn></SignIn> -->
-              <!-- SignIn template -->
-            </v-card-text>
-
-            <v-card-actions>
-              <v-spacer></v-spacer>
-
-              <v-btn color="green darken-1" flat="flat" @click="dialog = false">Disagree</v-btn>
-
-              <v-btn color="green darken-1" flat="flat" @click="dialog = false">Agree</v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-dialog>
-        <v-menu offset-y>
-          <template v-slot:activator="{ on }">
-            <v-btn v-on="on" flat>Writer</v-btn>
-          </template>
-          <v-list>
-            <v-list-tile v-for="(item, index) in items" :key="index" @click>
-              <v-list-tile-title>{{ item.title }}</v-list-tile-title>
-            </v-list-tile>
-          </v-list>
-        </v-menu>
-        <v-btn flat>Search</v-btn>
-      </v-toolbar-items>
-    </v-toolbar>
-  </div>
-</template>
+position="center bottom"
 ```
 
+
+
+- open-on-hover : 버튼 같다대기만 하면 어떤 이벤트가 발생하게 함
+
+- img 크기 조절하는 방법.
+
+  ```css
+  .container{
+  overflow:hidden;
+  }
+  .container img{
+      margin-top:50%;
+  }
+  ```
+
+  
+
+- 구글 번역 기능
+
+- ```html
+  <script type="text/javascript">
+    function googleTranslateElementInit() {
+        new google.translate.TranslateElement({pageLanguage: 'ko', includedLanguages: 'en,ja,ko', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
+  }
+  </script>
+  <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+  ```
+
+  index.html 에 추가
+
+- ```html
+  <v-toolbar-items><div id="google_translate_element"></div></v-toolbar-items>
+  ```
+
+  원하는 위치에 추가하기
