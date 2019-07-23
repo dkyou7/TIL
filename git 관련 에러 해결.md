@@ -20,15 +20,15 @@ git 관련 에러 해결
    `git checkout -b [내가 만들고자 하는 기능 이름] [브랜치명]` 으로 develop에서 파생된 브랜치를 하나 더 만든다
 3. 코드 수정 뚝딱뚝딱 하기
 4. `git add .` 
-5. `git commit -m'YDK|[기능이걸했어요!]'`
+5. `git commit -m'YDK|[기능 이걸 했어요!]'`
 6. `git pull --rebase origin develop` : 리베이스로 내꺼가 최신이 되도록 붙여준다.![git2](img/git2.PNG)
 8. `git push origin feature/Footer-contact-us-init2` : 먼저 내가 수정한 브랜치에 등록
 
 ![git3](img/git3.PNG)
 
 8. `gitlab` 이동 후 스스로 머지 리퀘스트를 날리고 받아들일 수 있다.
-9. `git checkout develop` 
-10. `git pull origin develop`
+9. `git checkout develop` : 브랜치 이동
+10. `git pull origin develop` : feature 브랜치에서 작성한 내용 가져오는 명령어. remote에 내가 올렸던 코드를 local로 땡겨온다.
 11. `git branch -D feature/Footer-contact-us-init` : 기능을 수행하기 위해 만들었던 브랜치를 삭제한다
 12. `git push origin --delete feature/Footer-contact-us-init` : remote에도 내가 이 브랜치를 삭제했음을 알린다.
 
