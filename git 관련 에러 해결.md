@@ -22,7 +22,7 @@ git 관련 에러 해결
 4. `git add .` 
 5. `git commit -m'YDK|[기능이걸했어요!]'`
 6. `git pull --rebase origin develop` : 리베이스로 내꺼가 최신이 되도록 붙여준다.![git2](img/git2.PNG)
-8. `git push origin develop` : develop 브랜치가 내꺼 코드에 맞춰지도록 땡겨준다.
+8. `git push origin feature/Footer-contact-us-init2` : 먼저 내가 수정한 브랜치에 등록
 
 ![git3](img/git3.PNG)
 
@@ -30,6 +30,7 @@ git 관련 에러 해결
 9. `git checkout develop` 
 10. `git pull origin develop`
 11. `git branch -D feature/Footer-contact-us-init` : 기능을 수행하기 위해 만들었던 브랜치를 삭제한다
+12. `git push origin --delete feature/Footer-contact-us-init` : remote에도 내가 이 브랜치를 삭제했음을 알린다.
 
 
 
