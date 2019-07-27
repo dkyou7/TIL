@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <title>Document</title>
+    <style>
+        body{
+            margin:0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        .cardbox{
+            perspective: 500px;
+            margin:15px;
+        }
+        .card{
+            position: relative;
+            width: 150px;
+            height: 150px;
+            background: #d2d2d2;
+            transform-style: preserve-3d;
+            transition: .5s ease;
+            box-shadow: 0 30px 30px rgba(0, 0, 0, .5);
+        }
+        .facebook{
+            background: #3b5998;
+        }
+        .card-front , .card-back{
+            position:absolute;
+            top:0;
+            left: 0;
+            width: 150px;
+            height: 150px;
+            color: #fff;
+            backface-visibility: hidden;
+        }
+        .card-front{
+            font-size: 40px;
+            justify-content: center;
+            align-items: center;
+            display: flex;
+        }
+        .card-back{
+            font-size: 30px;
+            justify-content: center;
+            align-items: center;
+            display: flex;
+        }
+        .cardbox:hover .card{
+            transform: rotateY(180deg);
+        }
+        .card-back{
+            transform: rotateY(180deg);
+        }
+    </style>
+</head>
+<body>
+    <div class="cardbox">
+        <div class="card facebook">
+            <div class="card-front"><i class='fa fa-facebook' aria-hidden="true"></i></div>
+            <div class="card-back">Facebook</div>
+        </div>
+    </div>
+</body>
+</html>
