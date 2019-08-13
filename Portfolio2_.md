@@ -530,3 +530,8 @@ app.listen(3000,()=> console.log('Server started...'));
 
 
 
+div 내부에서 div 정렬하기
+
+바깥쪽에는 text-align left center right 주고 
+
+안쪽에는 display:inline-block 속성 준다.
