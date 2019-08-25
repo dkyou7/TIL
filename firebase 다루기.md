@@ -14,7 +14,7 @@ Firebase - 다 준비되어있다.
 
 ## 2. Firebase Hosting
 
-### 0) [Hosting #1] Hosting 이해 및 custom 도메인 연결
+### [Hosting #1] Hosting 이해 및 custom 도메인 연결
 
 ```bash
 npm install -g firebase-tools
@@ -27,7 +27,7 @@ firebase login
 
 - 구글 아이디로 로그인 해주면 이렇게 된다.
 
-### 1) firebase 초기화
+#### 1) firebase 초기화
 
 ```bash
 firebase init
@@ -57,7 +57,7 @@ firebase init
 
 ![1566737041700](img/1566737041700.png)
 
-### 2) 컴파일
+#### 2) 컴파일
 
 ```bash
 npm run build
@@ -71,7 +71,7 @@ cd public
 
 - public 폴더 안에서 웹 작업 수행 후
 
-### 3) 베포
+#### 3) 베포
 
 ```bash
 firebase deploy
@@ -79,7 +79,7 @@ firebase deploy
 
 ![1566737339255](img/1566737339255.png)
 
-###  - 에러났던거 #1
+#### - 에러났던거 #1
 
 ![1566655547526](img/1566655547526.png)
 
@@ -89,7 +89,7 @@ firebase deploy
 
 ![1566655614969](img/1566655614969.png)
 
-### - 에러났던거 #2
+#### - 에러났던거 #2
 
 ![1566737494983](img/1566737494983.png)
 
@@ -100,7 +100,7 @@ firebase deploy
 - 도메인은 후이즈(?) 라는 곳을 쓴다고 한다.
 - <https://www.youtube.com/watch?v=TQ5OPoYKKpI> 7:00~
 
-### 4) firebase functions
+#### 4) firebase functions
 
 - 파이어베이스에서 접속 기록을 log로 남길 수 있다고 해서 설치해보았다.
 
