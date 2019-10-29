@@ -236,3 +236,12 @@ Vue.component('child',{
     "firebase:deploy": "vue-cli-service build && firebase deploy"
   },
 ```
+
+npm i -g firebase-tools 하면 에러가 난다.. 왜그럴까?
+
+npm install 을 하고 해야하는건가? (가정) -- 맞는듯 지금까진 잘 된다.
+
+npm install --save vue-qrcode-reader
+
+firebase deploy
+
