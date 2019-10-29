@@ -222,3 +222,17 @@ Vue.component('child',{
 <child message="ㅎㅇ!! 나는 Vue.js야."</child>
 ```
 
+## Vue 프로젝트 만들기
+
+- npm install -g @vue/cli
+- vue create test
+- task explorer 설치
+- package.json
+
+```bash
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "firebase:deploy": "vue-cli-service build && firebase deploy"
+  },
+```
