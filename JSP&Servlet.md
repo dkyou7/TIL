@@ -87,10 +87,12 @@ pxp13716@gmail.com
 - 정보 공유 4가지 방법
 
   - 서블릿 전체가지고 있는 서블릿 컨텍스트
-  - 세션, 로그인 정보
+  - 세션, 
+    - 세션 : 내가 쓸 데이터를 서버에 저장. - 로그인에 활용됨
+    - 쿠키 : 내가 쓸 데이터를 클라이언트에 저장.
+  - 로그인 정보
   - 리퀘스트
   - 페이지 ( 거의 안씀 )
-
   - 속성들을 때려 넣을 수 있다. 디스패쳐 서블릿
   - 서블릿 컨테이너 리퀘스트 리스펀스 객체 만들어서 던져주니까 이거 두개 먼저 찾아보자
 
@@ -319,3 +321,115 @@ pxp13716@gmail.com
     ```
 
   - 
+
+### MVC 패턴
+
+- 서블릿은 c 에 해당된다.
+  - 자바 파일로 만들어야 한다.
+- v 에 해당되는 것을 배울 것이다.
+  - out.println으로 쓰여진 것은 전부 분리하여 view에 나타내야한다.
+- m은 데이터 자료이다. 
+  - 데이터들을 가져온다. 이 데이터를 어떻게 처리할 것인가에 대해 배워야 한다.
+  - 스프링
+  - ValueObject(VO)로 날려야 한다.
+  - DAO(Data Access Object)
+  - 세션 : 내가 쓸 데이터를 서버에 저장. - 로그인에 활용됨
+  - 쿠키 : 내가 쓸 데이터를 클라이언트에 저장.
+
+#### web.xml 작성법
+
+- 나름의 규칙을 가지고 작성하는 것이 좋다.
+
+#### 값을 넘기는 방법
+
+```c++
+// 위의 데이터를 다른 서블릿에서 사용할 수 있도록 저장
+// context => 프로젝트 전체에서 참조
+// Session => 브라우저가 닫히기 전까지 프로젝트에서 참조
+// Request => 동일한 request를 사용하는 서블릿 또는 JSP에서 참조
+```
+
+- 컨텍스트
+
+- 세션
+
+- 리퀘스트
+
+- 페이지(거의 안씀)
+
+동적으로 속성과 값을 때려 넣을 수 있다. 넣을 때는 set, 받을때는 get
+
+#### 서블릿끼리 값을 넘겨보자.
+
+```java
+protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String name = request.getParameter("name");
+		String kor = request.getParameter("kor");
+		String eng = request.getParameter("eng");
+		
+		int total = Integer.valueOf(kor)+Integer.valueOf(eng);
+		int avg = total/2;
+		
+		System.out.println(name+" : "+kor+" : " +eng);
+		
+		// 위의 데이터를 다른 서블릿에서 사용할 수 있도록 저장
+		// context => 프로젝트 전체에서 참조
+		// Session => 브라우저가 닫히기 전까지 프로젝트에서 참조
+		// Request => 동일한 request를 사용하는 서블릿 또는 JSP에서 참조
+		
+		// context
+		ServletContext sc = getServletContext();
+		
+		// Object name = new String("홍길동");
+		sc.setAttribute("name", name);
+		
+		// Object kor = new Integer(100);
+		sc.setAttribute("kor", kor);
+		sc.setAttribute("eng", eng);
+		sc.setAttribute("total", total);
+		sc.setAttribute("avg", avg);
+		
+		response.sendRedirect("P203");
+	}
+```
+
+```java
+protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.setContentType("text/html;charset=utf-8");
+		PrintWriter out = response.getWriter();
+		
+		out.println("<h3>Get Context Attribute</h3>");
+		
+		// Context 참조 객체를 얻어온다.
+		ServletContext sc = getServletContext();
+		
+		// ServletContext Attribute 값을 가져온다.
+		String name = (String)sc.getAttribute("name");
+		int kor = (Integer)sc.getAttribute("kor");
+		int eng = (Integer)sc.getAttribute("eng");
+		int total = (Integer)sc.getAttribute("total");
+		int avg = (Integer)sc.getAttribute("avg");
+		
+		out.println("Name=>"+name);
+		out.println("kor=>"+kor);
+		out.println("eng=>"+eng);
+		out.println("total=>"+total);
+		out.println("avg=>"+avg);
+	}
+```
+
+- 변수 각각 만들기 너무 귀찮아
+- 그래서 VO 객체 만들꺼야
+
+#### 쿠키를 만들자
+
+- 쿠키 : 클라이언트단에서 저장해놓은 정보
+  - 생성
+  - 변경
+  - 삭제
+- 쿠키는 string으로밖에 값을 못넘기기때문에 조금 불편한 것 같다
+
+#### 세션을 만들자
+
+- 이걸 보완한게 세션이다.
+- 객체를 넘길 수 있다.
