@@ -205,7 +205,7 @@ pxp13716@gmail.com
 2. src - 서블릿 만들기 - 기본 구조 만들기
 
    - ```java
-  protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
      	response.setContentType("text/html;charset=utf-8");
      	PrintWriter out = response.getWriter();
      	
@@ -322,7 +322,7 @@ pxp13716@gmail.com
 
   - 
 
-### MVC 패턴
+#### MVC 패턴
 
 - 서블릿은 c 에 해당된다.
   - 자바 파일로 만들어야 한다.
@@ -439,24 +439,178 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
   - get
   - remove
 
+쿠키 : 데이터를 주고받는 기술로 쓰이는 것은 아니다. 안정도니 데이터라고 할 수 없다.
+
+세션 : 브라우저 한도 내에서 유지된다. 
+
+리퀘스트 : get방식으로 쓰인다. 이 객체에 setAttribute를 넣은 후 다른 곳에서 꺼내쓴다.
+
+서블릿 컨테이너는 새로운 리퀘스트와 리스폰스를 할당하기 때문에 기본적으로는 사용 불가능한다. 
+
+하지만 내일 쓸 수 있도록 만드는 기술을 배울 것이다.
+
+day4에는 exception 처리를 배우고, day5에는 jdbc를 배운다.
+
+### day3
+
+#### 복습
+
+- 데이터 주고받기
+
+  컨텍스트
+
+  쿠키
+
+  세션
+
+  페이지(거의 쓰이지 않음)
+
+- 세션에 true false 주는 이유. 
+
+  - true 없으면 만들고
+  - false 는 없으면 안만든다.
+
+- 항상 Object 타입으로 보내기 때문에 받을 때는 항상 다운캐스팅이 필요하다.
+
+- HttpSession 객체이다. 
+
+#### 로그인을 구현하자
+
+로그인
+
+로그인 체크 구현하자
+
+서블릿 만들어보자
+
+#### sendRedirect 만들어보자
+
+1. jsp에는 req,res 가 한 쌍으로 주어진다. 
+2. 페이지를 이동하면 새로운 req,res 가 한 쌍으로 주어지게 된다.
+3. a페이지에 있던 req,res와 b페이지에 있는 req,res는 다르다.
+4. a페이지에 있는 req 정보는 b로 이동할 수 없는 것이 원칙이다.
+5. 이것을 이동 가능하게 해주는 것이 sendRedirect 이다.
+6. 이건 완전 새로운 req,res 를 전달해준다. 정보의 이동은 불가능하다.
+7. request.getAttribute("name") 의 형태로 받는다.
+8. 정보의 이동까지 가능하게 하는게 디스패쳐서블릿이라고 한다.
+9. 디스패쳐
+   1. forword : 페이지 view를 변경하면서 req,res 전달.
+   2. include : 이 페이지에 위에서 지정한 페이지를 포함하면서 req,res 전달
+
+데이터를 서블릿으로 만들어서 지금처럼 세션으로 던져서 쓰게 만든다. 세션은 서버측에 저장된다.
+
+세션은 텍스트 파일만 집어넣어야 한다. 메모리 장난 아니다. 세션 유지를 위해 작은 데이터만 넣는다.
+
+리퀘스트는 한두페이지 넘어가면 끝나기 때문에 대용량 데이터를 공유하기 위해서는 리퀘스트만 쓴다.  
+
+데이터를 주고받을 때 쓰는거 : 리퀘스트 뿐이다.
+
+포워드 되면 이전 주소를 계속 유지한다. 주의할 사항은 form 이다.
+
+get으로 포워드 시킨 값은 두번 입력된다. 주의하기!
+
+데이터 입력할 때 post 하는 걸 숨기련느 이유도 있지만
+
+request에 다 때려 넣고 포워드 시켰을 때 get 방식은 이걸 계속 반복한다. post는 반복 안한다.
+
+사용자가 f5 눌러서 새로고침했을 때 다시 생성되는걸 방지하는 목적이 있다.
+
+el : jsp 로직이라고 한다. ( 이엘 ) - 게터 세터로 만든다.
+
+뿌릴테니까 알아서 받아라 이게 디스패쳐 서블릿이라고 한다.
+
+#### filter 를 만들어보자
+
+필터가 앞에 게이트웨이 역할을 수행한다.
+
+필터 메서드
+
+- 위에 입력시 적용
+- 밑에 나올때 적용
+
+필터를 여러개 적용시켜서 기술하는 순서로 적용시킬 수 있다.
+
+기술한 순서대로 실행된다.
+
+스프링에서는 하나 존재한다. post 걸 때 세팅하기 귀찮아서 하나 설정한다
+
+mvc 패턴 만들때도 적용된다.
+
+1. 필터 만들기
+
+   ```java
+   public void destroy() {
+   		System.out.println("Filter One 객체 삭제됨");
+   	}
+   	
+   	// 서블릿 or JSP에 진입 또는 나올때 실행되는 메서드
+   	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+   		// 진입시 실행될 명령을 기술
+   		System.out.println("Filter One 진입 시 실행");
+   		
+   		chain.doFilter(request, response);
+   		
+   		// 나갈때 실행할 명령을 기술
+   		System.out.println("Filter One 나갈 때 실행");
+   	}
+   
+   	public void init(FilterConfig fConfig) throws ServletException {
+   		System.out.println("Filter One 객체 생성됨");
+   	}
+   ```
+
+2. web.xml 만지기
+
+   ```xml
+   <filter>
+     	<filter-name>OneFilter</filter-name>
+     	<filter-class>com.book.filter.P249_FilterOne</filter-class>
+     </filter>
+     <filter-mapping>
+     	<filter-name>OneFilter</filter-name>
+     	<url-pattern>*</url-pattern>	<!-- 모든 파일 -->
+     </filter-mapping>
+   ```
+
+거름망 정도로 생각하면 된다.
+
+#### 필터를 이용해서 로그분석기를 만들어보자
+
+checkFilter
+
+#### 리스너
+
+세션 리스너
+
+리퀘스트 리스너
+
+컨텍스트 리스너
+
+메모리상에 상주했다가 내부 라이프 사이클에 의해 호출된다.
+
+사용자의 조작을 받아 이벤트를 대상으로 지정하여 문자 형태로 구체화한다.
+
+서블릿 컨테이너는 필터, 리스너, 서블릿, jsp 파일을 다 등록해놓는다.
+
+사용자 요청에 따라 필터와 리스너는 정해놓은 web.xml 을 통해 처음 한번 읽고 나서 끝이다.
+
+필터는 요청한 jsp, servlet 요청시 먼저 실행된다. 거름망의 용도로. 요청이 오면 무조건 필터 거쳐서 간다. 공통적인 사항들을 빼서 만들어준다.
+
+리스너는 등록해놓으면 실행하는데 서블릿 컨텍스트는 프로젝트 전체니까 프로젝트가 실행될 때 되자마자 전체에서 사용될 변수 두개 셋팅해놓고 싶을 때, web.xml context-param 을 이용.
+
+자동적으로 등록해서 만들어질 메서드가 필요하다.
+
+세션이 몇명 붙었는지 알고 싶을 때, 컨텍스트에 집어넣고 쓸 수 있어, 세션 맺을 때마다 컨텍스트 관리 해줘야 하고, 페이지마다 컨텍스트를 다 만들어줘야한다. 이러한 불편함을 줄이기 위해 감지해서 자동적으로 리스너를 등록하여 세션객체 만드는 것을 감지하도록 만들어줘야한다. 
+
+#### web.xml 작성 순서
+
+```xml
+<!-- 프로젝트 전체에서 사용할 변수 -->
+
+  
+<!-- listener 등록 -->
 
 
-쿠키는 아니야 약간 다른 기술이야
+<!-- filter 등록 -->
+ 
+```
 
-데이터를 주고받는 기술로 쓰이지는 않는다.
-
-안정된 데이터라고 할 수 없음.
-
-세션, 어느 한도 내에서 브라우져 한도 내에서 유용하다
-
-브라워 자체를 다 받아야된다
-
-내일은 리퀘스트이다. 
-
-이 리퀘스트는 겟에서밖에 못쓴다. 이 객체에 setAttribute 때려 ㅂ박고 다른 곳에서 꺼내 쓴다.
-
-기본적으로 안된다. 항상 서블릿 컨테이너는 새로운 리퀘와 새로운 리스폰스를 할당해서 준다.
-
-항상 새로운걸 준다.
-
-썻던걸 다시 몼쓴다. 하지만 쓸 수 있도록 만드는 기술을 배울 것이다.
