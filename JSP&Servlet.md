@@ -6,6 +6,8 @@
 
 pxp13716@gmail.com
 
+http://java1371.cafe24.com/download/20191118_servlet.zip
+
 #### 목적
 
 테이블 crud 만들기
@@ -206,13 +208,13 @@ pxp13716@gmail.com
 
    - ```java
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-     	response.setContentType("text/html;charset=utf-8");
-     	PrintWriter out = response.getWriter();
-     	
-     	out.println("Path ->"+path);
-     	out.println("Email ->"+email);
-     	
-     	out.close();
+       	response.setContentType("text/html;charset=utf-8");
+       	PrintWriter out = response.getWriter();
+       	
+       	out.println("Path ->"+path);
+       	out.println("Email ->"+email);
+       	
+       	out.close();
      }
      ```
    
@@ -614,3 +616,75 @@ checkFilter
  
 ```
 
+### day4
+
+#### 프로젝트 백업 잘 하는 방법
+
+1. 새로 프로젝트 만든다. 기존 프로젝트의 이름과 동일하게 만든다.
+2. webcontent 내부를 다 긁어서 복사한다.
+3. src 내부에 있는 코드를 다 저장한다.
+
+#### 복습
+
+리퀘스트.getparameter
+
+디스패쳐서블릿 - 데이터 쓸 수 있게 만듬
+
+센드 리다이렉트 vs 리퀘스트
+
+세션 처리 서블릿에서 가능. 로그인 처리시 - get으로 꺼낸다.
+
+세션과 리퀘스트에 데이터 집어넣기
+
+서블릿이 중점적으로 하는 일에 대한 전반을 공부했다.
+
+오늘은 디비를 할 것이다.
+
+처음에는 jsp 파일로 만드는 것이 낫다.
+
+디비 설계가 정말 중요하다.
+
+모델, 자바를 만든다.
+
+콘트롤, 뷰를 만든다.
+
+모델과 디비를 연동하는 작업을 배울 것이다.
+
+자바진영에서는 다 구현하지 않고 연결하는 메서드만 만든다. 결과 처리만 만든다.
+
+명령을 인터페이스로 만들어 놓고 각 벤드사에게 베포를 하였음.
+
+인터페이스는 객체화 x 
+
+디비를 쓰기 전에 벤더에 가서 jar 파일을 가져와야한다. 가져와서 이 프로젝트에서 쓰겠다.
+
+이클립스에서 디비 명령을 쓰겠다.
+
+#### 디비 ojdbc6 넣기
+
+```
+C:\oraclexe\app\oracle\product\11.2.0\server\jdbc\lib
+```
+
+```
+https://dev.mysql.com/downloads/connector/j/
+```
+
+conn - javasql로 받아와야한다.
+
+number > int
+
+varchar > string
+
+date > date
+
+java.lang.ClassNotFoundException: 에러
+
+디비 연동 안되었는지? jar 파일 다운로드
+
+문자 잘못 쳤는지?
+
+1. 
+
+2. connection url 복사해서 넣자.
+3. 디비 xe 켜야 작동된다.
