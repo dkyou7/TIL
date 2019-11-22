@@ -678,7 +678,7 @@ varchar > string
 
 date > date
 
-java.lang.ClassNotFoundException: 에러
+##### java.lang.ClassNotFoundException: 에러
 
 디비 연동 안되었는지? jar 파일 다운로드
 
@@ -688,3 +688,14 @@ java.lang.ClassNotFoundException: 에러
 
 2. connection url 복사해서 넣자.
 3. 디비 xe 켜야 작동된다.
+
+### day5
+
+1. Employee 파일 구성
+
+- classes 구성
+
+- db  jar  파일 만들기
+
+- 서버 - 모듈 - / 만 남기기
+- el 구문 : ${ } getEmp.jsp에 사용하였음.
