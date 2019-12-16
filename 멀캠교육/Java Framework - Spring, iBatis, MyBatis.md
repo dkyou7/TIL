@@ -82,6 +82,25 @@ iBatis, Mybatis 프레임워크 -- 금
 
 - Bean을 가지고 많이 노는 것 같아.
   - Constructor Injection
+    
     - 자바소스를 전혀 변경하지 않고도 객체관계의존성을 이용하여 변경 가능하다. xml에서 변경 가능하다.
+    
+      ```xml
+      <bean id="tv" class="polymorphism4.SamsungTV">
+          <constructor-arg ref="sony"></constructor-arg>
+          <constructor-arg value="180000000"></constructor-arg>
+      </bean>
+      ```
+    
   - Setter Injection
-
+  
+    ```xml
+    <bean id="tv" class="polymorphism4.GoogleTV">
+        <property name="speaker" ref="sony"></property>
+        <property name="price" value="1200000"></property>
+    </bean>
+    ```
+  
+  - Annotation 방식
+    - @Component
+    - @Autowired
