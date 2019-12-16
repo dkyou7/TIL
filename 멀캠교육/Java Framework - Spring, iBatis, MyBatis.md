@@ -102,5 +102,10 @@ iBatis, Mybatis 프레임워크 -- 금
     ```
   
   - Annotation 방식
-    - @Component
-    - @Autowired
+  
+    ```xml
+    <context:component-scan base-package="polymorphism4"></context:component-scan>
+    ```
+  
+    - @Component : 클래스 위에
+    - @Autowired : 변수 위에
