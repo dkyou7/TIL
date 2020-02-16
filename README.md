@@ -26,4 +26,4 @@
 - stoi(str) -> str  : string형을 int 형으로 변환.
 
 ### 2020-01-16
-- 리눅스 readme 추가
+- 리눅스 readme 추가!
