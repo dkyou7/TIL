@@ -40,3 +40,6 @@
 5. [[Django] Model 필드타입 정리](https://github.com/dkyou7/TIL/blob/master/%ED%8C%8C%EC%9D%B4%EC%8D%AC/Django/5.%20%5BDjango%5D%20Model%20%ED%95%84%EB%93%9C%ED%83%80%EC%9E%85%20%EC%A0%95%EB%A6%AC.md)
 6. [[Django] 폼 만들기](https://github.com/dkyou7/TIL/blob/master/%ED%8C%8C%EC%9D%B4%EC%8D%AC/Django/6.%20%5BDjango%5D%20%ED%8F%BC%20%EB%A7%8C%EB%93%A4%EA%B8%B0.md)
 
+### 2020-03-04
+
+1. [영어오답노트 작성](https://github.com/dkyou7/TIL/blob/master/%EC%98%81%EC%96%B4/%EC%98%81%EC%96%B4%20%EC%98%A4%EB%8B%B5%EB%85%B8%ED%8A%B8.md)
