@@ -43,3 +43,5 @@
 ### 2020-03-04
 
 1. [영어오답노트 작성](https://github.com/dkyou7/TIL/blob/master/%EC%98%81%EC%96%B4/%EC%98%81%EC%96%B4%20%EC%98%A4%EB%8B%B5%EB%85%B8%ED%8A%B8.md)
+2. [[Django] 탬플릿 확장시키기](https://github.com/dkyou7/TIL/blob/master/%ED%8C%8C%EC%9D%B4%EC%8D%AC/Django/7.%20%5BDjango%5D%20%ED%85%9C%ED%94%8C%EB%A6%BF%20%ED%99%95%EC%9E%A5%EC%8B%9C%ED%82%A4%EA%B8%B0.md)
+3. [[Django] css 적용하기](https://github.com/dkyou7/TIL/blob/master/%ED%8C%8C%EC%9D%B4%EC%8D%AC/Django/8.%20%5BDjango%5D%20CSS%20%EC%A0%81%EC%9A%A9%ED%95%98%EA%B8%B0.md)
