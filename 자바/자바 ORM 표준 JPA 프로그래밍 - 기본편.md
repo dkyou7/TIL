@@ -621,7 +621,8 @@ public class Member {
 - @GeneratedValue
 
 ```java
-@Id @GeneratedValue(strategy = GenerationType.AUTO)
+@Id
+@GeneratedValue(strategy = GenerationType.AUTO)
 private Long id;
 ```
 
@@ -638,12 +639,13 @@ private Long id;
 
 #### 3. IDENTITY 전략 - 특징
 
-- 기본 키 생성을 데이터베이스에 위임
+- 기본 키 생성을 데이터베이스가좀 해달라!
 - 주로 MySQL, PostgreSQL, SQL Server, DB2에서 사용
   (예: MySQL의 AUTO_ INCREMENT) 
-- JPA는 보통 트랜잭션 커밋 시점에 INSERT SQL 실행
+- JPA는 보통 트랜잭션 **커밋 시점**에 INSERT SQL 실행
 - AUTO_ INCREMENT는 데이터베이스에 INSERT SQL을 실행 한 이후에 ID 값을 알 수 있음
-- IDENTITY 전략은 em.persist() 시점에 즉시 INSERT SQL 실행 하고 DB에서 식별자를 조회
+- IDENTITY 전략은 tx.commit() 시점 이전, em.persist() 시점에 즉시 INSERT SQL 실행 하고 DB에서 식별자를 조회하는 내부 JPA 동작방식을 가지고 있다.
+- 다른 전략은 이미 PK 값을 알고 있기 때문에 commit() 시점에 쿼리가 나간다.
 
 #### 4. IDENTITY 전략 - 매핑
 
@@ -710,8 +712,52 @@ create table MY_SEQUENCES (
 
 #### 9. 권장하는 식별자 전략
 - 기본 키 제약 조건: null 아님, 유일, 변하면 안된다.
-- 미래까지 이 조건을 만족하는 자연키는 찾기 어렵다. 대리키(대체키)를 사용하자. 
+- 미래까지 이 조건을 만족하는 자연키(주민번호같은거)는 찾기 어렵다. 
+  - 대리키(대체키)를 사용하자. 
 - 예를 들어 주민등록번호도 기본 키로 적절하기 않다. 
 - 권장: Long형 + 대체키 + 키 생성전략 사용
 
 ### 5) 실전 예제 - 1. 요구사항 분석과 기본 매핑
+
+#### 1. 요구사항 분석
+
+- 회원은 상품을 주문할 수 있다.
+- 주문 시 여러 종류의 상품을 선택할 수 있다.
+
+#### 2. 기능 목록
+
+- 회원 기능
+  - 회원등록
+  - 회원조회
+- 상품 기능
+  - 상품등록
+  - 상품수정
+  - 상품조회
+- 주문 기능
+  - 상품주문
+  - 주문내역조회
+  - 주문취소
+
+#### 3. 도메인 모델 분석
+
+- 회원과 주문의 관계: 회원은 여러 번 주문할 수 있다. (일대다) 
+- 주문과 상품의 관계: 주문할 때 여러 상품을 선택할 수 있다. 반
+  대로 같은 상품도 여러 번 주문될 수 있다. 주문상품 이라는 모델
+  을 만들어서 다대다 관계를 일다대, 다대일 관계로 풀어냄
+
+![image](https://user-images.githubusercontent.com/26649731/77269250-a3d54980-6ceb-11ea-92d6-ff65095ceb15.png)
+
+#### 4. 테이블 설계
+
+![image](https://user-images.githubusercontent.com/26649731/77269275-b8194680-6ceb-11ea-9f3d-916762e9098e.png)
+
+#### 5. 엔티티 설계와 매핑
+
+![image](https://user-images.githubusercontent.com/26649731/77269295-c5363580-6ceb-11ea-860b-163230a81280.png)
+
+#### 6. 데이터 중심 설계의 문제점
+
+- 현재 방식은 객체 설계를 테이블 설계에 맞춘 방식
+- 테이블의 외래키를 객체에 그대로 가져옴
+- 객체 그래프 탐색이 불가능
+- 참조가 없으므로 UML도 잘못됨
