@@ -36,7 +36,14 @@
 
 ![image](https://user-images.githubusercontent.com/26649731/77269295-c5363580-6ceb-11ea-860b-163230a81280.png)
 
-#### 6. 코딩
+#### 6. 데이터 중심 설계의 문제점
+
+- 현재 방식은 객체 설계를 테이블 설계에 맞춘 방식
+- 테이블의 외래키를 객체에 그대로 가져옴
+- 객체 그래프 탐색이 불가능
+- 참조가 없으므로 UML도 잘못됨
+
+#### 7. 코딩
 
 - Project 생성
 - pom.xml 설정
@@ -91,130 +98,11 @@
 
 - entity 설계한 것에 따라 틀 짜기 (전체 디렉토리)
 
-![image](https://user-images.githubusercontent.com/26649731/77284716-aac38280-6d12-11ea-94b9-198e46b27b67.png)
+![image](https://user-images.githubusercontent.com/26649731/77272871-97ee8500-6cf5-11ea-8e0f-2c36169a126b.png)
 
 - Member.java
 
-```java
-@Entity
-@Getter
-public class Member {
-
-    @Id @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "MEMBER_ID")
-    private Long id;
-
-    private String name;
-    private String city;
-    private String street;
-    private String zipcode;
-}
-```
-
 - Item.java
-
-```java
-@Entity
-@Getter
-public class Item {
-
-    @Id @GeneratedValue
-    @Column(name = "ITEM_ID")
-    private Long id;
-
-    private String name;
-    private int price;
-    private int stockQuantity;
-}
-```
-
 - Order.java
-
-```java
-@Entity
-@Getter
-@Table(name = "ORDERS")     // 예약어에 걸릴 수 있으므로 이름 변경
-public class Order {
-
-    @Id @GeneratedValue // 기본은 AUTO다.
-    @Column(name = "ORDER_ID")
-    private Long id;
-
-    @Column(name = "MEMBER_ID")
-    private Long memberId;
-
-    private LocalDateTime orderDate;
-
-    @Enumerated(EnumType.STRING)    // 필수로 STRING 해주자.
-    private OrderStatus status;
-}
-```
-
 - OrderItem.java
 
-```java
-@Entity
-@Getter
-public class OrderItem {
-
-    @Id @GeneratedValue
-    @Column(name = "ORDER_ITEM_ID")
-    private Long id;
-
-    @Column(name = "ORDER_ID")
-    private Long orderId;
-
-    @Column(name = "ITEM_ID")
-    private Long itemId;
-
-    private int orderPrice;
-    private int count;
-
-}
-```
-
-- OrderStatus
-
-```java
-public enum OrderStatus {
-    ORDER,CANCEL
-}
-```
-
-- JpaMain
-
-```java
- public static void main(String[] args) {
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("hello");
-
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
-        // code start
-        EntityTransaction tx = entityManager.getTransaction();
-        // 트랜잭션 내부에서 쿼리를 실행해야 한다.
-        tx.begin();         // 트랜잭션 시작
-        try{
-
-            tx.commit();        // 트랜잭션 실행
-        }catch (Exception e){
-            // 에러가 발생하면 롤백하기.
-            tx.rollback();
-        }finally {
-            // 어찌되었던 자원 다 쓰면 매니저를 닫아주어야 한다.
-            entityManager.close();
-        }
-        entityManagerFactory.close();
-        // code end
-    }
-```
-
-- 이렇게 하니까 테이블이 4개 생성되었다.
-
-- 어노테이션을 적극 활용하는 것이 좋다. 주석같은 역활을 하기 때문에
-- createDate => create_date 로 바꿔준다. 
-
-#### 7. 데이터 중심 설계의 문제점
-
-- 현재 방식은 객체 설계를 테이블 설계에 맞춘 방식
-- 테이블의 외래키를 객체에 그대로 가져옴
-- 객체 그래프 탐색이 불가능
-- 참조가 없으므로 UML도 잘못됨
