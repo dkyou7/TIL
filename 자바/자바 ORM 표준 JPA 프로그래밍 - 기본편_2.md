@@ -1,51 +1,47 @@
-[toc]
+[TOC]
 
+### 5) 실전 예제 - 1. 요구사항 분석과 기본 매핑
 
+#### 1. 요구사항 분석
 
-### 5) 실전 예제 - 1. 요구사항 분석과 기본 매핑	
+- 회원은 상품을 주문할 수 있다.
+- 주문 시 여러 종류의 상품을 선택할 수 있다.
 
-#### 1. 요구사항 분석	
+#### 2. 기능 목록
 
-- 회원은 상품을 주문할 수 있다.	
-- 주문 시 여러 종류의 상품을 선택할 수 있다.	
+- 회원 기능
+  - 회원등록
+  - 회원조회
+- 상품 기능
+  - 상품등록
+  - 상품수정
+  - 상품조회
+- 주문 기능
+  - 상품주문
+  - 주문내역조회
+  - 주문취소
 
-#### 2. 기능 목록	
+#### 3. 도메인 모델 분석
 
-- 회원 기능	
-  - 회원등록	
-  - 회원조회	
-- 상품 기능	
-  - 상품등록	
-  - 상품수정	
-  - 상품조회	
-- 주문 기능	
-  - 상품주문	
-  - 주문내역조회	
-  - 주문취소	
+- 회원과 주문의 관계: 회원은 여러 번 주문할 수 있다. (일대다)
+- 주문과 상품의 관계: 주문할 때 여러 상품을 선택할 수 있다. 반대로 같은 상품도 여러 번 주문될 수 있다. 주문상품 이라는 모델을 만들어서 다대다 관계를 일다대, 다대일 관계로 풀어냄
 
-#### 3. 도메인 모델 분석	
+[![image](https://user-images.githubusercontent.com/26649731/77269250-a3d54980-6ceb-11ea-92d6-ff65095ceb15.png)](https://user-images.githubusercontent.com/26649731/77269250-a3d54980-6ceb-11ea-92d6-ff65095ceb15.png)
 
-- 회원과 주문의 관계: 회원은 여러 번 주문할 수 있다. (일대다) 	
-- 주문과 상품의 관계: 주문할 때 여러 상품을 선택할 수 있다. 	
-  반대로 같은 상품도 여러 번 주문될 수 있다. 	
-  주문상품 이라는 모델을 만들어서 다대다 관계를 일다대, 다대일 관계로 풀어냄	
+#### 4. 테이블 설계
 
-![image](https://user-images.githubusercontent.com/26649731/77269250-a3d54980-6ceb-11ea-92d6-ff65095ceb15.png)	
+[![image](https://user-images.githubusercontent.com/26649731/77269275-b8194680-6ceb-11ea-9f3d-916762e9098e.png)](https://user-images.githubusercontent.com/26649731/77269275-b8194680-6ceb-11ea-9f3d-916762e9098e.png)
 
-#### 4. 테이블 설계	
+#### 5. 엔티티 설계와 매핑
 
-![image](https://user-images.githubusercontent.com/26649731/77269275-b8194680-6ceb-11ea-9f3d-916762e9098e.png)	
+[![image](https://user-images.githubusercontent.com/26649731/77269295-c5363580-6ceb-11ea-860b-163230a81280.png)](https://user-images.githubusercontent.com/26649731/77269295-c5363580-6ceb-11ea-860b-163230a81280.png)
 
-#### 5. 엔티티 설계와 매핑	
+#### 6. 코딩
 
-![image](https://user-images.githubusercontent.com/26649731/77269295-c5363580-6ceb-11ea-860b-163230a81280.png)	
+- Project 생성
+- pom.xml 설정
 
-#### 6. 코딩	
-
-- Project 생성	
-- pom.xml 설정	
-
-```xml	
+```
 <dependencies>	
     <!-- JPA 하이버네이트 -->	
     <dependency>	
@@ -63,9 +59,9 @@
 </dependencies>	
 ```
 
-- META-INF > persistence.xml 설정	
+- META-INF > persistence.xml 설정
 
-```xml	
+```
 <?xml version="1.0" encoding="UTF-8"?>	
 <persistence version="2.2"	
              xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"	
@@ -93,13 +89,13 @@
 </persistence>	
 ```
 
-- entity 설계한 것에 따라 틀 짜기 (전체 디렉토리)	
+- entity 설계한 것에 따라 틀 짜기 (전체 디렉토리)
 
-![image](https://user-images.githubusercontent.com/26649731/77284716-aac38280-6d12-11ea-94b9-198e46b27b67.png)	
+[![image](https://user-images.githubusercontent.com/26649731/77284716-aac38280-6d12-11ea-94b9-198e46b27b67.png)](https://user-images.githubusercontent.com/26649731/77284716-aac38280-6d12-11ea-94b9-198e46b27b67.png)
 
-- Member.java	
+- Member.java
 
-```java	
+```
 @Entity	
 @Getter	
 public class Member {	
@@ -113,9 +109,9 @@ public class Member {
 }	
 ```
 
-- Item.java	
+- Item.java
 
-```java	
+```
 @Entity	
 @Getter	
 public class Item {	
@@ -128,9 +124,9 @@ public class Item {
 }	
 ```
 
-- Order.java	
+- Order.java
 
-```java	
+```
 @Entity	
 @Getter	
 @Table(name = "ORDERS")     // 예약어에 걸릴 수 있으므로 이름 변경	
@@ -146,9 +142,9 @@ public class Order {
 }	
 ```
 
-- OrderItem.java	
+- OrderItem.java
 
-```java	
+```
 @Entity	
 @Getter	
 public class OrderItem {	
@@ -164,17 +160,17 @@ public class OrderItem {
 }	
 ```
 
-- OrderStatus	
+- OrderStatus
 
-```java	
+```
 public enum OrderStatus {	
     ORDER,CANCEL	
 }	
 ```
 
-- JpaMain	
+- JpaMain
 
-```java	
+```
  public static void main(String[] args) {	
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("hello");	
         EntityManager entityManager = entityManagerFactory.createEntityManager();	
@@ -196,25 +192,27 @@ public enum OrderStatus {
     }	
 ```
 
-- 이렇게 하니까 테이블이 4개 생성되었다.	
+- 이렇게 하니까 테이블이 4개 생성되었다.
+- 어노테이션을 적극 활용하는 것이 좋다. 주석같은 역활을 하기 때문에
+- createDate => create_date 로 바꿔준다.
 
-- 어노테이션을 적극 활용하는 것이 좋다. 주석같은 역활을 하기 때문에	
-- createDate => create_date 로 바꿔준다. 	
+#### 7. 데이터 중심 설계의 문제점
 
-#### 7. 데이터 중심 설계의 문제점	
-
-- 현재 방식은 객체 설계를 테이블 설계에 맞춘 방식	
-- 테이블의 외래키를 객체에 그대로 가져옴	
-- 객체 그래프 탐색이 불가능	
+- 현재 방식은 객체 설계를 테이블 설계에 맞춘 방식
+- 테이블의 외래키를 객체에 그대로 가져옴
+- 객체 그래프 탐색이 불가능
 - 참조가 없으므로 UML도 잘못됨
 
 ## 1. 연관관계 매핑 기초
 
 ### 1. 목표
 
-- 객체와 테이블 연관관계의 차이를 이해
-- 객체의 참조와 테이블의 외래 키를 매핑
+- **객체**(레퍼런스)와 **테이블**(외래 키)의 연관관계의 차이를 이해
+
+- #### 객체의 참조와 테이블의 외래 키를 매핑
+
 - 용어 이해
+
   - 방향(Direction): 단방향, 양방향
   - 다중성(Multiplicity): 다대일(N:1), 일대다(1:N), 일대일(1:1), 다대다(N:M) 이해
   - 연관관계의 주인(Owner): 객체 양방향 연관관계는 관리 주인이 필요
@@ -230,6 +228,7 @@ public enum OrderStatus {
 
 - 예제 시나리오
   - 회원과 팀이 있다.
+    - 회원은 팀의 **외래키**를 가지고 있으므로 연관관계의 주인이 된다.
   - 회원은 하나의 팀에만 소속될 수 있다.
   - 회원과 팀은 다대일 관계다.
 
@@ -237,11 +236,11 @@ public enum OrderStatus {
 
 - (연관관계가 없는 객체)
 
-![image](https://user-images.githubusercontent.com/26649731/77379331-cd5da600-6dbb-11ea-8244-d6c85f513e7d.png)
+[![image](https://user-images.githubusercontent.com/26649731/77379331-cd5da600-6dbb-11ea-8244-d6c85f513e7d.png)](https://user-images.githubusercontent.com/26649731/77379331-cd5da600-6dbb-11ea-8244-d6c85f513e7d.png)
 
 - 참조 대신에 외래 키를 그대로 사용해보자
 
-```java
+```JAVA
 @Entity
 public class Member { 
     @Id @GeneratedValue
@@ -249,7 +248,7 @@ public class Member {
     @Column(name = "USERNAME")
     private String name;
     @Column(name = "TEAM_ID")
-    private Long teamId; 
+    private Long teamId; // DB에 맞춘 모델링
     … 
 } 
 @Entity
@@ -279,17 +278,16 @@ em.persist(member);
 - 식별자로 다시 조회하여 저장하기
   - 객체지향적인 방법은 아니다.
 
-```java
+```
 //조회
 Member findMember = em.find(Member.class, member.getId()); 
 //연관관계가 없음
 Team findTeam = em.find(Team.class, team.getId());
 ```
 
-- **객체를 테이블에 맞추어 데이터 중심으로 모델링하면, 
-  협력 관계를 만들 수 없다**
-  - 테이블은 외래 키로 조인을 사용해서 연관된 테이블을 찾는다. 
-  - 객체는 참조를 사용해서 연관된 객체를 찾는다. 
+- 객체를 테이블에 맞추어 데이터 중심으로 모델링하면, 협력 관계를 만들 수 없다
+  - 테이블은 외래 키로 조인을 사용해서 연관된 테이블을 찾는다.
+  - 객체는 참조를 사용해서 연관된 객체를 찾는다.
   - 테이블과 객체 사이에는 이런 큰 간격이 있다
 
 ### 4. 단방향 연관관계
@@ -298,13 +296,9 @@ Team findTeam = em.find(Team.class, team.getId());
 
 (객체 연관관계 사용)
 
-![image](https://user-images.githubusercontent.com/26649731/77379844-0f3b1c00-6dbd-11ea-9ce4-067815374158.png)
+[![image](https://user-images.githubusercontent.com/26649731/77379844-0f3b1c00-6dbd-11ea-9ce4-067815374158.png)](https://user-images.githubusercontent.com/26649731/77379844-0f3b1c00-6dbd-11ea-9ce4-067815374158.png)
 
 - 객체의 참조와 테이블의 외래키를 매핑
-
-```java
-
-```
 
 - 객체의 참조와 테이블의 외래 키를 매핑
 
@@ -318,8 +312,8 @@ public class Member {
     private int age;
     // @Column(name = "TEAM_ID")
     // private Long teamId;
-    @ManyToOne
-    @JoinColumn(name = "TEAM_ID")
+    @ManyToOne	// 관계가 뭔지
+    @JoinColumn(name = "TEAM_ID")	// 뭐랑 조인할지 정하기
     private Team team;
     ...
 }
@@ -327,11 +321,11 @@ public class Member {
 
 - ORM 매핑
 
-![image](https://user-images.githubusercontent.com/26649731/77379964-5d501f80-6dbd-11ea-97bf-b6a31560604e.png)
+[![image](https://user-images.githubusercontent.com/26649731/77379964-5d501f80-6dbd-11ea-97bf-b6a31560604e.png)](https://user-images.githubusercontent.com/26649731/77379964-5d501f80-6dbd-11ea-97bf-b6a31560604e.png)
 
 - 연관관계 저장
 
-```java
+```
 //팀 저장
 Team team = new Team();
 team.setName("TeamA");
@@ -345,7 +339,7 @@ em.persist(member);
 
 - 참조로 연관관계 조회 - 객체 그래프 탐색
 
-```java
+```
 //조회
 Member findMember = em.find(Member.class, member.getId()); 
 //참조를 사용해서 연관관계 조회
@@ -360,18 +354,18 @@ Team teamB = new Team();
 teamB.setName("TeamB");
 em.persist(teamB);
 // 회원1에 새로운 팀B 설정
-member.setTeam(teamB);
+member.setTeam(teamB);	// 팀을 바꾸고 싶다고 가정하였음.
 ```
 
-### 5. 양방향 연관관계와 연관관계의 주인
+### 5. 양방향 연관관계와 연관관계의 주인(매우중요)
 
 - 양방향 매핑
 
-![image](https://user-images.githubusercontent.com/26649731/77380284-13b40480-6dbe-11ea-8372-048b0d6b09ff.png)
+[![image](https://user-images.githubusercontent.com/26649731/77380284-13b40480-6dbe-11ea-8372-048b0d6b09ff.png)](https://user-images.githubusercontent.com/26649731/77380284-13b40480-6dbe-11ea-8372-048b0d6b09ff.png)
 
 - Member 엔티티는 단방향과 동일
 
-```java
+```
 @Entity
 public class Member { 
     @Id @GeneratedValue
@@ -388,7 +382,7 @@ public class Member {
 
 - Team 엔티티는 컬렉션 추가
 
-```java
+```
 @Entity
 public class Team {
     @Id @GeneratedValue
@@ -402,7 +396,7 @@ public class Team {
 
 - 반대 방향으로 객체 그래프 탐색
 
-```java
+```
 //조회
 Team findTeam = em.find(Team.class, team.getId()); 
 int memberSize = findTeam.getMembers().size(); 
@@ -412,34 +406,34 @@ int memberSize = findTeam.getMembers().size();
 - 연관관계의 주인과 mappedBy
 
   - mappedBy = JPA의 멘탈붕괴 난이도
-  - mappedBy는 처음에는 이해하기 어렵다. 
+  - mappedBy는 처음에는 이해하기 어렵다.
   - 객체와 테이블간에 연관관계를 맺는 차이를 이해해야 한다.
 
 - 객체와 테이블이 관계를 맺는 차이
 
   - 객체 연관관계 = 2개
-    - 회원 -> 팀 연관관계 1개(단방향) 
-    - 팀 -> 회원 연관관계 1개(단방향) 
+    - 회원 -> 팀 연관관계 1개(단방향)
+    - 팀 -> 회원 연관관계 1개(단방향)
+    - 억지로 양방향인 척 서로 참조한다.
   - 테이블 연관관계 = 1개
     - 회원 <-> 팀의 연관관계 1개(양방향)
 
-  ![image](https://user-images.githubusercontent.com/26649731/77380654-ff243c00-6dbe-11ea-89a2-247e0ed4580a.png)
+  [![image](https://user-images.githubusercontent.com/26649731/77380654-ff243c00-6dbe-11ea-89a2-247e0ed4580a.png)](https://user-images.githubusercontent.com/26649731/77380654-ff243c00-6dbe-11ea-89a2-247e0ed4580a.png)
 
 - 객체의 양방향 관계
 
-  - 객체의 양방향 관계는 사실 양방향 관계가 아니라 서로 다른 단뱡향 관계 2개다.
-  - 객체를 양방향으로 참조하려면 단방향 연관관계를 2개 만들어야 한다. 
-    - A -> B (a.getB()) 
+  - 객체의 양방향 관계는 사실 양방향 관계가 아니라 <u>서로 다른 단뱡향 관계 2개</u>다.
+  - 객체를 양방향으로 참조하려면 <u>단방향 연관관계를 2개 만들어야 한다.</u>
+    - A -> B (a.getB())
     - B -> A (b.getA())
 
 - 테이블의 양방향 연관관계
 
   - 테이블은 외래 키 하나로 두 테이블의 연관관계를 관리
 
-  - MEMBER.TEAM_ID 외래 키 하나로 양방향 연관관계 가짐
-    (양쪽으로 조인할 수 있다.)
+  - <u>MEMBER.TEAM_ID 외래 키 하나로 양방향 연관관계 가짐 (양쪽으로 조인할 수 있다.)</u>
 
-    ```sql
+    ```
     SELECT * 
     FROM MEMBER M
     JOIN TEAM T ON M.TEAM_ID = T.TEAM_ID 
@@ -451,29 +445,30 @@ int memberSize = findTeam.getMembers().size();
 
 - 둘 중 하나로 외래 키를 관리해야 한다.
 
-![image](https://user-images.githubusercontent.com/26649731/77380810-6fcb5880-6dbf-11ea-84af-5ad6e9b1ea56.png)
+[![image](https://user-images.githubusercontent.com/26649731/77380810-6fcb5880-6dbf-11ea-84af-5ad6e9b1ea56.png)](https://user-images.githubusercontent.com/26649731/77380810-6fcb5880-6dbf-11ea-84af-5ad6e9b1ea56.png)
 
 - 연관관계의 주인(Owner)
 
   - 양방향 매핑 규칙
     - 객체의 두 관계중 하나를 연관관계의 주인으로 지정
-    - 연관관계의 주인만이 외래 키를 관리(등록, 수정) 
-    - 주인이 아닌쪽은 읽기만 가능
-    - 주인은 mappedBy 속성 사용X 
+    - 연관관계의 주인만이 외래 키를 관리(등록, 수정)
+    - 주인이 아닌쪽은 **읽기**만 가능
+    - <u>주인은 mappedBy 속성 사용X</u>
     - 주인이 아니면 mappedBy 속성으로 주인 지정
 
 - 누구를 주인으로?
 
-  - 외래 키가 있는 곳을 주인으로 정해라
+  - #### 외래 키가 있는 곳을 주인으로 정해라
+
   - 여기서는 Member.team이 연관관계의 주인
 
-  ![image](https://user-images.githubusercontent.com/26649731/77380870-aef9a980-6dbf-11ea-815e-8a6bb682b334.png)
+  [![image](https://user-images.githubusercontent.com/26649731/77380870-aef9a980-6dbf-11ea-815e-8a6bb682b334.png)](https://user-images.githubusercontent.com/26649731/77380870-aef9a980-6dbf-11ea-815e-8a6bb682b334.png)
 
 - 양방향 매핑 시 가장 많이 하는 실수
 
-  - 연관관계의 주인에 값을 입력하지 않음
+  - **연관관계의 주인에 값을 입력하지 않음**
 
-```java
+```
 Team team = new Team();
  team.setName("TeamA");
  em.persist(team);
@@ -487,12 +482,13 @@ Team team = new Team();
  em.persist(member);
 ```
 
-![image](https://user-images.githubusercontent.com/26649731/77380912-d3558600-6dbf-11ea-981b-c6ab55c79dbe.png)
+[![image](https://user-images.githubusercontent.com/26649731/77380912-d3558600-6dbf-11ea-981b-c6ab55c79dbe.png)](https://user-images.githubusercontent.com/26649731/77380912-d3558600-6dbf-11ea-981b-c6ab55c79dbe.png)
 
 - 양방향 매핑 시 연관관계의 주인에 값을 입력해야 한다.
-  - 순수한 객체 관계를 고려하면 항상 양쪽 다 값을 입력해야 한다.
 
-```java
+  - #### 순수한 객체 관계를 고려하면 항상 양쪽 다 값을 입력해야 한다.
+
+```
 Team team = new Team();
 team.setName("TeamA");
 em.persist(team);
@@ -507,32 +503,45 @@ member.setTeam(team); //**
 em.persist(member);
 ```
 
-![image](https://user-images.githubusercontent.com/26649731/77380977-00099d80-6dc0-11ea-80c3-57b8eee9777d.png)
+[![image](https://user-images.githubusercontent.com/26649731/77380977-00099d80-6dc0-11ea-80c3-57b8eee9777d.png)](https://user-images.githubusercontent.com/26649731/77380977-00099d80-6dc0-11ea-80c3-57b8eee9777d.png)
 
 - 양방향 연관관계 주의 - 실습
-  - 순수 객체 상태를 고려해서 항상 양쪽에 값을 설정하자
+
+  - #### 순수 객체 상태를 고려해서 항상 양쪽에 값을 설정하자
+
   - 연관관계 편의 메소드를 생성하자
-  - 양방향 매핑시에 무한 루프를 조심하자
-    - 예: toString(), lombok, JSON 생성 라이브러리
+
+  - **양방향 매핑시에 무한 루프를 조심하자**
+
+    - 예: toString(), lombok
+      - 롬복에서 toString 쓸 때 조심하자.
+    - JSON 생성 라이브러리
+      - 컨트롤러에서 엔티티 반환하지 말자.
+        - 무한 루프에 걸림
+        - 엔티티 변경 시 스팩이 변할 수 있다.
+
 - 양방향 매핑 정리
-  - 단방향 매핑만으로도 이미 연관관계 매핑은 완료
-  - 양방향 매핑은 반대 방향으로 조회(객체 그래프 탐색) 기능이 추가된 것 뿐
-  - JPQL에서 역방향으로 탐색할 일이 많음
-  - 단방향 매핑을 잘 하고 양방향은 필요할 때 추가해도 됨
-    (테이블에 영향을 주지 않음)
+
+  - **단방향 매핑만으로도 이미 연관관계 매핑은 완료**
+    - 1차 설계는 단방향으로 마치자.
+  - 양방향 매핑은 반대 방향으로 **조회**(객체 그래프 탐색) 기능이 추가된 것 뿐
+  - **JPQL**에서 <u>역방향으로 탐색할 일이 많음</u>
+  - 단방향 매핑을 잘 하고 양방향은 필요할 때 추가해도 됨 (테이블에 영향을 주지 않음)
+
 - 연관관계의 주인을 정하는 기준
+
   - 비즈니스 로직을 기준으로 연관관계의 주인을 선택하면 안됨
-  - 연관관계의 주인은 외래 키의 위치를 기준으로 정해야함
+  - #### 연관관계의 주인은 외래 키의 위치를 기준으로 정해야함
 
 ### 6. 실전 예제 - 2. 연관관계 매핑 시작
 
 - 테이블 구조
   - 테이블 구조는 이전과 같다.
 
-![image](https://user-images.githubusercontent.com/26649731/77381051-3cd59480-6dc0-11ea-8084-ea7371eb458f.png)
+[![image](https://user-images.githubusercontent.com/26649731/77381051-3cd59480-6dc0-11ea-8084-ea7371eb458f.png)](https://user-images.githubusercontent.com/26649731/77381051-3cd59480-6dc0-11ea-8084-ea7371eb458f.png)
 
 - 객체 구조
   - 참조를 사용하도록 변경
 
-![image](https://user-images.githubusercontent.com/26649731/77381075-4b23b080-6dc0-11ea-9ab2-cbb5ffb32ae3.png)
+[![image](https://user-images.githubusercontent.com/26649731/77381075-4b23b080-6dc0-11ea-9ab2-cbb5ffb32ae3.png)](https://user-images.githubusercontent.com/26649731/77381075-4b23b080-6dc0-11ea-9ab2-cbb5ffb32ae3.png)
 
