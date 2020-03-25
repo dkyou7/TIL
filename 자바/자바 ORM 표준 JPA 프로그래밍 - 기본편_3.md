@@ -9,25 +9,27 @@
   - 다대다 [N:M] 
   - 실전 예제 - 3. 다양한 연관관계 매핑
 - 연관관계 매핑시 고려사항 3가지
-  - 다중성
+  - **다중성**
     - 다대일: @ManyToOne 
     - 일대다: @OneToMany 
     - 일대일: @OneToOne 
-    - 다대다: @ManyToMany
-  - 단방향, 양방향
+    - 다대다: @ManyToMany 
+      - 실무에서는 1:N + N:1로 나누어 사용한다.
+  - **단방향, 양방향**
     - 테이블
       - 외래 키 하나로 양쪽 조인 가능
       - 사실 방향이라는 개념이 없음
     - 객체
       - 참조용 필드가 있는 쪽으로만 참조 가능
       - 한쪽만 참조하면 단방향
-      - 양쪽이 서로 참조하면 양방향
-  - 연관관계의 주인
+      - 양쪽이 서로 참조하면 양방향 - 단방향 두개
+  - **연관관계의 주인**
     - 테이블은 외래 키 하나로 두 테이블이 연관관계를 맺음
     - 객체 양방향 관계는 A->B, B->A 처럼 참조가 2군데
-    - 객체 양방향 관계는 참조가 2군데 있음. 둘중 테이블의 외래 키를 관리할 곳을 지정해야함
+    - 객체 양방향 관계는 참조가 2군데 있음. 
+      둘중 테이블의 외래 키를 관리할 곳을 지정해야함
     - 연관관계의 주인: 외래 키를 관리하는 참조
-    - 주인의 반대편: 외래 키에 영향을 주지 않음, 단순 조회만 가능
+    - 주인의 반대편: 외래 키에 영향을 주지 않음, <u>단순 조회</u>만 가능
 
 ### 2.1 다대일[N:1]
 
@@ -52,6 +54,19 @@ public class Member {
 }
 ```
 
+```java
+@Entity
+@Getter
+@Setter
+public class Team {
+	...
+    // 양방향 설정하고 싶을 때.
+    // 팀의 멤버를 너무나 알고 싶을 때, 단순히 조회만 하고 싶을 때 쓴다.
+    @OneToMany(mappedBy = "team")
+    List<Member> members = new ArrayList<>();
+}
+```
+
 - 다대일 양방향
 
 ![image](https://user-images.githubusercontent.com/26649731/77494715-c56c3780-6e89-11ea-9957-3dfc64ef4c15.png)
@@ -61,19 +76,7 @@ public class Member {
   - 외래 키가 있는 쪽이 연관관계의 주인
   - 양쪽을 서로 참조하도록 개발
 
-```java
-@Entity
-@Getter
-@Setter
-public class Team {
-	...
-    // 팀의 멤버를 너무나 알고 싶을 때, 단순히 조회만 하고 싶을 때 쓴다.
-    @OneToMany(mappedBy = "team")
-    List<Member> members = new ArrayList<>();
-}
-```
-
-### 2.2 일대다[1:N]
+### 2.2 일대다[1:N] (권장하지 않음)
 
 - 일대다 단방향
 
@@ -96,7 +99,7 @@ public class Team {
   - 이런 매핑은 공식적으로 존재X 
   - @JoinColumn(insertable=false, updatable=false) 
   - 읽기 전용 필드를 사용해서 양방향 처럼 사용하는 방법
-  - 다대일 양방향을 사용하자
+  - **<u>다대일 양방향을 사용하자</u>**
 
 ### 2.3 일대일[1:1]
 
@@ -105,7 +108,7 @@ public class Team {
   - 주 테이블이나 대상 테이블 중에 외래 키 선택 가능
     - 주 테이블에 외래 키
     - 대상 테이블에 외래 키
-  - 외래 키에 데이터베이스 유니크(UNI) 제약조건 추가
+  - <u>외래 키에 데이터베이스 유니크(UNI) 제약조건 추가</u>
 - 일대일: 주 테이블에 외래 키 단방향
 
 ![image](https://user-images.githubusercontent.com/26649731/77494852-40355280-6e8a-11ea-9109-525990966f99.png)
@@ -172,14 +175,12 @@ public class Locker {
 }
 ```
 
-
-
 - 일대일: 대상 테이블에 외래 키 단방향
 
 ![image](https://user-images.githubusercontent.com/26649731/77494896-6c50d380-6e8a-11ea-90cf-047e76d6f0fe.png)
 
 - 일대일: 대상 테이블에 외래 키 단방향 정리
-  - 단방향 관계는 JPA 지원X
+  - 단방향 관계는 JPA **지원X**
   - 양방향 관계는 지원
 - 일대일: 대상 테이블에 외래 키 양방향
 
@@ -188,22 +189,22 @@ public class Locker {
 - 일대일: 대상 테이블에 외래 키 양방향
   - 사실 일대일 주 테이블에 외래 키 양방향과 매핑 방법은 같음
 - 일대일 정리
-  - 주 테이블에 외래 키
+  - 주 테이블에 외래 키 (Memeber)
     - 주 객체가 대상 객체의 참조를 가지는 것 처럼 주 테이블에 외래 키를 두고 대상 테이블을 찾음
     - 객체지향 개발자 선호
     - JPA 매핑 편리
     - 장점: 주 테이블만 조회해도 대상 테이블에 데이터가 있는지 확인 가능
     - 단점: 값이 없으면 외래 키에 null 허용
-  - 대상 테이블에 외래 키
+    - 대상 테이블에 외래 키 (Locker)
     - 대상 테이블에 외래 키가 존재
     - 전통적인 데이터베이스 개발자 선호
     - 장점: 주 테이블과 대상 테이블을 일대일에서 일대다 관계로 변경할 때 테이블 구조 유지
     - 단점: 프록시 기능의 한계로 지연 로딩으로 설정해도 항상 즉시 로딩됨(프록시는 뒤에서 설명)
 
-### 2.4 다대다[N:M]
+### 2.4 다대다[N:M] (실무에서는 변경 사용 권장)
 
 - 관계형 데이터베이스는 정규화된 테이블 2개로 다대다 관계를 표현할 수 없음
-- 연결 테이블을 추가해서 일대다, 다대일 관계로 풀어내야함
+- **연결 테이블을 추가해서 일대다, 다대일 관계로 풀어내야함**
 
 ![image](https://user-images.githubusercontent.com/26649731/77495041-d10c2e00-6e8a-11ea-9e8e-62f58d15a977.png)
 
@@ -253,8 +254,8 @@ public class Product {
 ![image](https://user-images.githubusercontent.com/26649731/77495134-09137100-6e8b-11ea-8fdc-e060ee317abd.png)
 
 - 다대다 한계 극복
-  - 연결 테이블용 엔티티 추가(연결 테이블을 엔티티로 승격) 
-  - @ManyToMany -> @OneToMany, @ManyToOne
+  - **연결 테이블용 엔티티 추가(연결 테이블을 엔티티로 승격)** 
+  - **@ManyToMany -> @OneToMany + @ManyToOne**
 
 ![image](https://user-images.githubusercontent.com/26649731/77495157-1df00480-6e8b-11ea-890a-a6fc93642fd7.png)
 
@@ -293,8 +294,6 @@ public class Product {
 }
 ```
 
-
-
 ### 2.5 실전 예제 3 - 다양한 연관관계 매핑
 
 - 배송, 카테고리 추가 - 엔티티
@@ -311,12 +310,117 @@ public class Product {
 
 ![image](https://user-images.githubusercontent.com/26649731/77495230-50016680-6e8b-11ea-90cf-746957f1febc.png)
 
+- Delivery.java
+
+```java
+@Entity
+public class Delivery {
+
+    @Id @GeneratedValue
+    private Long id;
+
+    private String city;
+    private String street;
+    private String zipcode;
+    private DeliveryStatus status;
+
+    // Order와 1:1 매핑. 주인은 아님.
+    @OneToOne(mappedBy = "delivery")
+    private Order order;
+}
+```
+
+- Category.java
+
+```java
+@Entity
+public class Category {
+
+    @Id @GeneratedValue
+    private Long id;
+
+    private String name;
+
+    // 부모
+    @ManyToOne
+    @JoinColumn(name = "PARENT_ID")
+    private Category parent;
+
+    // 자식들
+    @OneToMany(mappedBy = "parent")
+    private List<Category> child = new ArrayList<>();
+
+    // 다대다 관계
+    @ManyToMany
+    @JoinTable(name = "CATEGORY_ITEM",
+               // 내가 조인해야 되는 것
+            joinColumns = @JoinColumn(name = "CATEGORY_ID"),  
+               // 반대 테이블에서 조인해줘야 하는 것
+            inverseJoinColumns = @JoinColumn(name = "ITEM_ID")) 
+    private List<Item> items = new ArrayList<>();
+}
+```
+
+- Order.java
+
+```java
+@Entity
+@Getter
+@Table(name = "ORDERS")     // 예약어에 걸릴 수 있으므로 이름 변경
+public class Order {
+
+    @Id @GeneratedValue // 기본은 AUTO다.
+    @Column(name = "ORDER_ID")
+    private Long id;
+
+//    @Column(name = "MEMBER_ID")
+//    private Long memberId;
+
+    @ManyToOne
+    @JoinColumn(name = "MEMBER_ID")
+    private Member member;
+
+    @OneToMany(mappedBy = "order")
+    private List<OrderItem> orderItems = new ArrayList<>();
+
+    private LocalDateTime orderDate;
+
+    @Enumerated(EnumType.STRING)    // 필수로 STRING 해주자.
+    private OrderStatus status;
+
+    // 1:1 매핑. 주인임.
+    @OneToOne
+    @JoinColumn(name = "DELIVERY_ID")
+    private Delivery delivery;
+}
+```
+
+- item.java
+
+```java
+public class Item {
+
+    @Id @GeneratedValue
+    @Column(name = "ITEM_ID")
+    private Long id;
+
+    private String name;
+    private int price;
+    private int stockQuantity;
+
+    @ManyToMany(mappedBy = "items")
+    private List<Category> categories = new ArrayList<>();
+
+}
+```
+
+
+
 - N:M 관계는 1:N, N:1로
   - 테이블의 N:M 관계는 중간 테이블을 이용해서 1:N, N:1 
   - 실전에서는 중간 테이블이 단순하지 않다. 
   - @ManyToMany는 제약: 필드 추가X, 엔티티 테이블 불일치
   - 실전에서는 @ManyToMany 사용X
-
 - @JoinColumn
   - 외래 키를 매핑할 때 사용
 
