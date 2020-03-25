@@ -38,13 +38,40 @@
 - 다대일 단방향 정리
   - 가장 많이 사용하는 연관관계
   - 다대일의 반대는 일대다
+
+```java
+@Entity
+@Getter
+@Setter
+public class Member {
+    ...
+        @ManyToOne      // 다대일 단방향
+        @JoinColumn(name = "TEAM_ID")   // 팀이랑 조인을 한다.
+        private Team team;
+    ...
+}
+```
+
 - 다대일 양방향
 
 ![image](https://user-images.githubusercontent.com/26649731/77494715-c56c3780-6e89-11ea-9957-3dfc64ef4c15.png)
 
+- 테이블에 영향을 주진 않는다. 객체만 영향을 받는다.
 - 다대일 양방향 정리
   - 외래 키가 있는 쪽이 연관관계의 주인
   - 양쪽을 서로 참조하도록 개발
+
+```java
+@Entity
+@Getter
+@Setter
+public class Team {
+	...
+    // 팀의 멤버를 너무나 알고 싶을 때, 단순히 조회만 하고 싶을 때 쓴다.
+    @OneToMany(mappedBy = "team")
+    List<Member> members = new ArrayList<>();
+}
+```
 
 ### 2.2 일대다[1:N]
 
@@ -85,6 +112,39 @@
 
 - 일대일: 주 테이블에 외래 키 단방향 정리
   - 다대일(@ManyToOne) 단방향 매핑과 유사
+- Member.java
+
+```java
+@Entity
+@Getter
+@Setter
+public class Member {
+    ...
+        @OneToOne
+        @JoinColumn(name = "LOCKER_ID")
+        private Locker locker;
+    ...
+}
+```
+
+- Locker.java
+
+```java
+@Entity
+@Getter
+@Setter
+public class Locker {
+    ...
+        @Id @GeneratedValue
+        @Column(name = "LOCKER_ID")
+        private Long id;
+
+    	@Column
+    	private String name;
+    ...
+}
+```
+
 - 일대일: 주 테이블에 외래 키 양방향
 
 ![image](https://user-images.githubusercontent.com/26649731/77494871-57744000-6e8a-11ea-8eea-5dbf874a04c0.png)
@@ -92,6 +152,28 @@
 - 일대일: 주 테이블에 외래 키 양방향 정리
   - 다대일 양방향 매핑 처럼 외래 키가 있는 곳이 연관관계의 주인
   - 반대편은 mappedBy 적용
+
+```java
+@Entity
+@Getter
+@Setter
+public class Locker {
+    ...
+        @Id @GeneratedValue
+        @Column(name = "LOCKER_ID")
+        private Long id;
+
+    	@Column
+    	private String name;
+   	// ============추가=============
+   		@OneToOne(mappedBy = "locker")
+   		private Member member;
+    // =============================
+}
+```
+
+
+
 - 일대일: 대상 테이블에 외래 키 단방향
 
 ![image](https://user-images.githubusercontent.com/26649731/77494896-6c50d380-6e8a-11ea-90cf-047e76d6f0fe.png)
@@ -135,7 +217,34 @@
 
 - @ManyToMany 사용
 - @JoinTable로 연결 테이블 지정
-- 다대다 매핑: 단방향, 양방향 가능
+- 다대다 매핑: 단방향, 양방향 가능.
+- 다대다 매핑
+
+```java
+@Entity
+@Getter
+@Setter
+public class Member {
+    ...
+        @ManyToMany
+        @JoinTable(name = "MEMBER_PRODUCT")
+        private List<Product> productList = new ArrayList<>();
+    ...
+}
+```
+
+```java
+@Entity
+@Getter
+@Setter
+public class Product {
+    ...
+    @ManyToMany(mappedBy = "productList")
+    private List<Member> members = new ArrayList<>();
+
+}
+```
+
 - 다대다 매핑의 한계
   - 편리해 보이지만 실무에서 사용X 
   - 연결 테이블이 단순히 연결만 하고 끝나지 않음
@@ -150,6 +259,41 @@
 ![image](https://user-images.githubusercontent.com/26649731/77495157-1df00480-6e8b-11ea-890a-a6fc93642fd7.png)
 
 ![image](https://user-images.githubusercontent.com/26649731/77495163-23e5e580-6e8b-11ea-9259-8aa636d628b9.png)
+
+- 다대다 매핑 수정
+
+```java
+public class Member {
+    ...
+        @OneToMany(mappedBy = "member")
+        private List<MemberProduct> memberProducts = new ArrayList<>();
+    ...
+}
+```
+
+```java
+public class MemberProduct {
+    ...
+        @ManyToOne
+        @JoinColumn(name = "PRODUCT_ID")
+        private Product product;
+
+    	@ManyToOne
+    	@JoinColumn(name = "MEMBER_ID")
+    	private Member member;
+}
+```
+
+```java
+public class Product {
+    ...
+    @OneToMany(mappedBy = "product")
+    private List<MemberProduct> memberProducts = new ArrayList<>();
+
+}
+```
+
+
 
 ### 2.5 실전 예제 3 - 다양한 연관관계 매핑
 
