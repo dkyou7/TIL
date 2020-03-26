@@ -28,9 +28,118 @@
   - @DiscriminatorColumn(name=“DTYPE”) 
   - @DiscriminatorValue(“XXX”)
 
-- 조인 전략
+### 가. 조인 전략
 
 ![image](https://user-images.githubusercontent.com/26649731/77599893-a503b200-6f49-11ea-8edd-5ddbf0b121b1.png)
+
+- Item.java
+  - 추상화 클래스로 만든다. 엔티티로서의 역할이 아니기 때문에
+
+```java
+@Entity
+@Getter @Setter
+public abstract class Item {
+
+    @Id @GeneratedValue
+    private Long id;
+
+    private String name;
+    private int price;
+}
+```
+
+- Movie.java
+
+```java
+@Entity
+public class Movie extends Item{
+    private String acter;
+    private String director;
+}
+```
+
+- Album.java
+
+```java
+@Entity
+public class Album extends Item{
+    private String artist;
+}
+```
+
+- Book.java
+
+```java
+@Entity
+public class Book extends Item{
+    private String author;
+    private String isbn;
+}
+```
+
+- 돌려보고 hibernate 에서는 단일 테이블 전략을 기본으로 한다는 것을 알게 됨.
+
+```sql
+create table Item (
+    DTYPE varchar(31) not null,
+    id bigint not null,
+    name varchar(255),
+    price integer not null,
+    artist varchar(255),
+    author varchar(255),
+    isbn varchar(255),
+    acter varchar(255),
+    director varchar(255),
+    primary key (id)
+)
+```
+
+- 조인 전략으로 수정
+
+`@Inheritance(strategy = InheritanceType.JOINED)`
+
+```java
+@Entity
+@Getter @Setter
+@Inheritance(strategy = InheritanceType.JOINED)	// 한줄 추가
+@DiscriminatorColumn	// 이거 넣으면 자식 타입 분류해줌.
+public class Item {
+
+    @Id @GeneratedValue
+    private Long id;
+
+    private String name;
+    private int price;
+}
+```
+
+```sql
+create table Movie (
+    acter varchar(255),
+    director varchar(255),
+    id bigint not null,
+    primary key (id)
+)
+create table Item (
+    id bigint not null,
+    name varchar(255),
+    price integer not null,
+    primary key (id)
+)
+create table Book (
+    author varchar(255),
+    isbn varchar(255),
+    id bigint not null,
+    primary key (id)
+)
+create table Album (
+    artist varchar(255),
+    id bigint not null,
+    primary key (id)
+)
+```
+
+- 조인 전략으로 매핑이 되었다.
 
 - 장점
   - 테이블 정규화
@@ -41,7 +150,9 @@
   - 조회 쿼리가 복잡함
   - 데이터 저장시 INSERT SQL 2번 호출
 
-- 단일 테이블 전략
+### 나. 단일 테이블 전략
+
+`@Inheritance(strategy = InheritanceType.SINGLE_TABLE)`
 
 ![image](https://user-images.githubusercontent.com/26649731/77599954-ce244280-6f49-11ea-96e9-c5759899b6fb.png)
 
@@ -51,8 +162,15 @@
 - 단점
   - 자식 엔티티가 매핑한 컬럼은 모두 null 허용
   - 단일 테이블에 모든 것을 저장하므로 테이블이 커질 수 있다. 상황에 따라서 조회 성능이 오히려 느려질 수 있다.
+- 널 값이 많아지고 성능 저하 단점
 
-- 구현 클래스마다 테이블 전략
+![image](https://user-images.githubusercontent.com/26649731/77603122-9372d800-6f52-11ea-9518-612f75366c31.png)
+
+### 다. 구현 클래스마다 테이블 전략
+
+`@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)`
+
+- 추상 객체(ITEM)가 안생긴다.
 
 ![image](https://user-images.githubusercontent.com/26649731/77600035-f9a72d00-6f49-11ea-8d84-def2189969d0.png)
 
@@ -64,6 +182,13 @@
 - 단점
   - 여러 자식 테이블을 함께 조회할 때 성능이 느림(UNION SQL 필요) 
   - 자식 테이블을 통합해서 쿼리하기 어려움
+
+### 총평
+
+- 조인 테이블 기본으로 깔고
+- 단순한 테이블 상속관계일 때 단일 테이블 전략을 사용하자.
+
+
 
 ## 3.2 @MappedSuperclass
 
