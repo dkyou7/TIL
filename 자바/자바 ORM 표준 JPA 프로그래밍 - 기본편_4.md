@@ -196,6 +196,39 @@ create table Album (
 
 ![image](https://user-images.githubusercontent.com/26649731/77600141-47239a00-6f4a-11ea-9f35-3dd174568d5d.png)
 
+```java
+// member.java
+
+public class Member extends BaseEntity{
+...
+}
+```
+
+```java
+// BaseEntity.java
+
+@Getter @Setter
+@MappedSuperclass 	// 이거 추가
+public abstract class BaseEntity {
+    private String createdBy;
+    private LocalDateTime createdDate;
+    private String lastModifiedBy;
+    private LocalDateTime lastModifiedDate;
+}
+```
+
+```java
+// main
+Member member = new Member();
+            member.setName("user1");
+            member.setCreatedBy("KIM");
+            member.setCreatedDate(LocalDateTime.now());
+
+            entityManager.persist(member);
+```
+
+
+
 - 상속관계 매핑X 
 - 엔티티X, 테이블과 매핑X 
 - 부모 클래스를 상속 받는 자식 클래스에 매핑 정보만 제공
@@ -223,3 +256,109 @@ create table Album (
 
 ![image](https://user-images.githubusercontent.com/26649731/77600229-910c8000-6f4a-11ea-9885-c88c72634aa4.png)
 
+```java
+// Item.java
+
+@Entity
+@Getter
+@Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn
+public class Item {
+
+    @Id @GeneratedValue
+    @Column(name = "ITEM_ID")
+    private Long id;
+
+    private String name;
+    private int price;
+    private int stockQuantity;
+
+    @ManyToMany(mappedBy = "items")
+    private List<Category> categories = new ArrayList<>();
+
+}
+```
+
+```java
+@Entity
+@Getter @Setter
+public class Book extends Item{
+    private String author;
+    private String isbn;
+}
+```
+
+```java
+@Entity
+@Getter @Setter
+public class Movie extends Item{
+    private String director;
+    private String actor;
+}
+```
+
+```java
+@Entity
+@Getter @Setter
+public class Album extends Item{
+    private String artist;
+    private String ect;
+}
+
+```
+
+```java
+public class JpaMain {
+    public static void main(String[] args) {
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("hello");
+
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        // code start
+        EntityTransaction tx = entityManager.getTransaction();
+        // 트랜잭션 내부에서 쿼리를 실행해야 한다.
+        tx.begin();         // 트랜잭션 시작
+        try{
+            Book book = new Book();
+            book.setAuthor("123");
+            book.setIsbn("asdfadsf");
+
+            entityManager.persist(book);
+
+            tx.commit();        // 트랜잭션 실행
+        }catch (Exception e){
+            // 에러가 발생하면 롤백하기.
+            tx.rollback();
+        }finally {
+            // 어찌되었던 자원 다 쓰면 매니저를 닫아주어야 한다.
+            entityManager.close();
+        }
+        entityManagerFactory.close();
+        // code end
+    }
+}
+```
+
+- BaseEntity 추가
+
+```java
+// BaseEntity.java
+
+@MappedSuperclass
+@Getter @Setter
+public abstract class BaseEntity {
+    private String createBy;
+    private LocalDateTime createDate;
+    private String lastModifiedBy;
+    private LocalDateTime lastModifiedDate;
+}
+```
+
+```java
+@Entity
+@Getter
+public class Member extends BaseEntity{
+    ..
+}
+```
+
+- 확장 다 해준다.
