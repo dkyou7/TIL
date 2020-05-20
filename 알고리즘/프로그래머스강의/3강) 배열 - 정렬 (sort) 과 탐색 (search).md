@@ -54,16 +54,19 @@ print(L)
 그래서 이진 탐색이 선형 탐색보다 빠른 방법이기는 합니다. 그러나, 뭔가를 찾으려 한다고 할 때, 항상 이진 탐색 방법을 적용하는 것이 답인가요? 그러려면 우선 배열을 정렬해야 한다던데, 크기 순으로 정렬하는 것은 금방 되나요? 한 번만 탐색하고 말 거라면, 굳이 크기 순으로 늘어놓느라 시간을 소모하는 것보다 한번씩 다 뒤지는 것이 낫지 않나요? (물론입니다.)
 
 ```python
-lower = 0
-upper = len(L) - 1
-idx = -1
-while lower <= upper:
-    mid = (lower + upper) // 2
-    if L[mid] == target:
-        ...
-    elif L[mid] <target:
-       	lower = ...
-    else:
-        upper = ...
+def solution(L, x):
+    lower = 0
+    upper = len(L) - 1
+    idx = -1
+    
+    while lower <= upper:
+        mid = (lower + upper) // 2
+        if x < L[mid]:
+            upper = mid - 1
+        elif x > L[mid]:
+            lower = mid + 1
+        else:
+            return mid
+    return idx
 ```
 
