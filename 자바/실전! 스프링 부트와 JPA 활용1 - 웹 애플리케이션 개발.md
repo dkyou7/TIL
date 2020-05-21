@@ -288,6 +288,38 @@ public class MemberRepository {
 - 자동으로 탬플릿을 만들어주느 핵 꿀팁
   - [live template intellij java](https://baejangho.com/entry/IntelliJ-Live-Templates)
 
+```java
+@RunWith(SpringRunner.class)
+@SpringBootTest
+public class MemberRepositoryTest {
+
+    @Autowired 
+    MemberRepository memberRepository;
+
+    @Test
+    @Transactional
+    @Rollback
+    // 맴버에 저장된 값은 한 트랜잭션 내부에서 아이디값, 유저 이름값이 같다.
+    public void testMember(){
+        Member member = new Member();
+        member.setUsername("memeberA");
+        // 객체 저장 후 저장된 아이디 반환!
+        Long savedId = memberRepository.save(member);
+
+        // 다시 찾아와!
+        Member findMember = memberRepository.find(savedId);
+
+        // 저장된거 아이디가 디비 거쳐서 나온 아이디와 같을 것인가?
+        Assertions.assertThat(findMember.getId()).isEqualTo(member.getId());
+        Assertions.assertThat(findMember.getUsername()).isEqualTo(member.getUsername());
+        // 객체도 같을건인가? 한 트랜잭션 내부에서 이루어지므로 같은 객체, 같은 해시값 가진다!
+        Assertions.assertThat(findMember).isEqualTo(member);
+    }
+}
+```
+
+
+
 ## 2. 도메인 분석 설계
 
 1. 요구사항 분석 도메인 모델과 테이블 설계 엔티티 클래스 개발 엔티티 설계시 주의점 애플리케이션 구현 준비 구현 요구사항 애플리케이션 아키텍처 회원 도메인 개발 회원 리포지토리 개발 회원 서비스 개발 회원 기능 테스트 상품 도메인 개발 상품 엔티티 개발(비즈니스 로직 추가) 상품 리포지토리 개발 상품 서비스 개발 주문 도메인 개발 주문, 주문상품 엔티티 개발 주문 리포지토리 개발 주문 서비스 개발 주문 기능 테스트 주문 검색 기능 개발 웹 계층 개발 홈 화면과 레이아웃 회원 등록 회원 목록 조회 상품 등록 상품 목록 상품 수정변경 감지와 병합(merge) 상품 주문 주문 목록 검색, 취소
