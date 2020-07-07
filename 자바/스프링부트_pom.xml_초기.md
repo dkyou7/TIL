@@ -38,7 +38,6 @@
             <version>1.4.199</version>
         </dependency>
 
-        <!-- 스프링 부트 설정 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -56,12 +55,19 @@
             </exclusions>
         </dependency>
 
-        <!-- 롬복 -->
+        <!-- lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.18.12</version>
             <scope>provided</scope>
+        </dependency>
+
+        <!-- spring-data-jpa -->
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-jpa</artifactId>
+            <version>2.3.0.RELEASE</version>
         </dependency>
 
     </dependencies>
@@ -74,6 +80,8 @@
             </plugin>
         </plugins>
     </build>
+
+
 
 </project>
 ```
