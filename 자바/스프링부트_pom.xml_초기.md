@@ -69,6 +69,12 @@
             <artifactId>spring-data-jpa</artifactId>
             <version>2.3.0.RELEASE</version>
         </dependency>
+             
+        <!--Security-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
 
     </dependencies>
 
