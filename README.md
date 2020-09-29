@@ -73,3 +73,7 @@ https://dkyou.tistory.com/55
 ### 2020-09-25
 
 https://dkyou.tistory.com/59
+
+### 2020-09-26~29
+
+- 강릉 여행
