@@ -85,3 +85,11 @@ https://dkyou.tistory.com/60
 ### 2020-10-02
 
 https://dkyou.tistory.com/62
+
+### 2020-10-03
+
+https://dkyou.tistory.com/63
+
+### 2020-10-04
+
+https://dkyou.tistory.com/66
