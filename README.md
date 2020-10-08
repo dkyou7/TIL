@@ -101,3 +101,7 @@ https://dkyou.tistory.com/68
 ### 2020-10-06
 
 https://dkyou.tistory.com/70
+
+### 2020-10-08
+
+https://dkyou.tistory.com/71
