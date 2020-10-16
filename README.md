@@ -129,3 +129,7 @@ https://dkyou.tistory.com/80
 ### 2020-10-15
 
 https://dkyou.tistory.com/81
+
+### 2020-10-16
+
+https://dkyou.tistory.com/82
