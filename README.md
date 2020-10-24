@@ -157,3 +157,7 @@ https://dkyou.tistory.com/87
 ### 2020-10-23
 
 https://dkyou.tistory.com/88
+
+### 2020-10-24
+
+https://dkyou.tistory.com/89
