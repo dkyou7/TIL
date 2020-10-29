@@ -174,6 +174,9 @@ https://dkyou.tistory.com/91
 
 https://dkyou.tistory.com/92
 
-### 2020-10-27
+### 2020-10-28
 
 https://dkyou.tistory.com/93
+
+### 2020-10-29
+https://dkyou.tistory.com/94
