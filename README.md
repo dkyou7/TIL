@@ -188,3 +188,7 @@ https://dkyou.tistory.com/95
 ### 2020-11-01
 
 https://dkyou.tistory.com/97
+
+### 2020-11-02
+
+https://dkyou.tistory.com/99
