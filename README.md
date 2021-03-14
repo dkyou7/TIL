@@ -341,3 +341,7 @@ https://dkyou.tistory.com/158
 ### 2021-03-11
 
 https://dkyou.tistory.com/159
+
+### 2021-03-14
+
+https://dkyou.tistory.com/159 외판원 순회 전까지.
