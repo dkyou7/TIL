@@ -7,10 +7,6 @@
 
 매주 학습한 것들을 정리하는 공간입니다.
 
-학습한 내용을 업로드할 때 파일이름 및 경로는 아래의 형식을 사용하기로 한다.
-
-* `topic` / `username` / `date-theme.md` : ex. `Java/hate-mint/2021-03-26-OOP.md`
-
 
 ### 2019-06-18
 * git branch add 작업. 
